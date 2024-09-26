@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://vkj6msjgf5dg"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Store/store.gd" id="1_l6ita"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxv1m"]
+bg_color = Color(0.819544, 0.730449, 0.060875, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owcee"]
+bg_color = Color(8.08597e-06, 0.656977, 0.860058, 1)
+
+[sub_resource type="GDScript" id="GDScript_h7ec5"]
+script/source = "extends Button
+
+
+
+"
+
+[node name="Store" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_l6ita")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="CoinStore" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(111, 1023)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="ScrollContainer/VBoxContainer/CoinStore"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gxv1m")
+
+[node name="GemStore" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(111, 1024)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="ScrollContainer/VBoxContainer/GemStore"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_owcee")
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 1.0
+offset_right = 529.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 51
+text = "X"
+script = SubResource("GDScript_h7ec5")
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
