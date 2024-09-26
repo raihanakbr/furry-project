@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://soq4402d6tl3"]
+
+[ext_resource type="Script" path="res://Scenes/Arcades/arcade.gd" id="1_5f558"]
+[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_ifpuf"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_5f558")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_ifpuf")

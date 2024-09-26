@@ -21,6 +21,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
 text = "setting"
 
 [node name="Button2" type="Button" parent="."]
+layout_mode = 0
 offset_left = 343.0
 offset_top = 46.0
 offset_right = 420.0
@@ -30,6 +31,7 @@ text = "diamond
 "
 
 [node name="Button3" type="Button" parent="."]
+layout_mode = 0
 offset_left = 186.0
 offset_top = 43.0
 offset_right = 263.0
@@ -38,6 +40,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
 text = "uang"
 
 [node name="Button4" type="Button" parent="."]
+layout_mode = 0
 offset_left = 45.0
 offset_top = 854.0
 offset_right = 122.0
@@ -46,6 +49,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
 text = "misi"
 
 [node name="Button5" type="Button" parent="."]
+layout_mode = 0
 offset_left = 426.0
 offset_top = 756.0
 offset_right = 503.0
