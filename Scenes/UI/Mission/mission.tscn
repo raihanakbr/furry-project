@@ -1,0 +1,215 @@
+[gd_scene load_steps=5 format=3 uid="uid://deo7gpdbxeqly"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Mission/mission.gd" id="1_1lxvj"]
+[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_y4dbx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ubmm"]
+bg_color = Color(0.6, 0.6, 0.6, 0.45098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwjr4"]
+bg_color = Color(0.309685, 0.65886, 0.235839, 1)
+
+[node name="Mission" type="Control"]
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -190.0
+offset_right = -20.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_1lxvj")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4ubmm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "[center]Ini Misi[/center]"
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/Panel"]
+custom_minimum_size = Vector2(0, 86.665)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer2/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer2/Panel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_y4dbx")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(305, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/MarginContainer2/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "[center]Misi 1[/center]"
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer2/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer/MarginContainer2/Panel/HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_uwjr4")
+text = "Claim"
+
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer3/Panel"]
+custom_minimum_size = Vector2(0, 86.665)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer3/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer3/Panel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_y4dbx")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer3/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(305, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/MarginContainer3/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "[center]Misi 2[/center]"
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer3/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer/MarginContainer3/Panel/HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.351563, 0.351563, 0.351563, 1)
+text = "Claim"
+
+[node name="MarginContainer4" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/MarginContainer4"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer4/Panel"]
+custom_minimum_size = Vector2(0, 86.665)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer4/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer4/Panel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_y4dbx")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer4/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(305, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/MarginContainer4/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "[center]Misi 3[center]"
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer4/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer/MarginContainer4/Panel/HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.351563, 0.351563, 0.351563, 1)
+text = "Claim"
+
+[node name="CloseButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 19.0
+offset_right = 486.0
+offset_bottom = 53.0
+text = "X"
+
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]

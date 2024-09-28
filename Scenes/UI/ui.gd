@@ -19,3 +19,8 @@ func _on_gem_store_button_pressed() -> void:
 	var scroll_container = store_scene.get_node("ScrollContainer")
 	add_child(store_scene)
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+
+
+func _on_mission_button_pressed() -> void:
+	var mission_scene = preload("res://Scenes/UI/Mission/mission.tscn").instantiate()
+	add_child(mission_scene)

@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/UI/Settings/settings.gd" id="1_6cghw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yoa43"]
+bg_color = Color(0.949737, 0.375848, 0.494017, 1)
 
 [sub_resource type="GDScript" id="GDScript_i72n1"]
 script/source = "extends Button

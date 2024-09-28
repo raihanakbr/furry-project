@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0uqee38k3rk5"]
+[gd_scene load_steps=7 format=3 uid="uid://d0uqee38k3rk5"]
 
 [ext_resource type="Script" path="res://Scenes/UI/ui.gd" id="1_0d6d5"]
-[ext_resource type="PackedScene" uid="uid://bffewm85grktk" path="res://Scenes/UI/Settings/settings.tscn" id="2_41nwx"]
 [ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="3_rruhm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc6n2"]
@@ -33,7 +32,7 @@ offset_bottom = 85.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
 text = "settings"
 
-[node name="Button4" type="Button" parent="."]
+[node name="MissionButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 45.0
 offset_top = 854.0
@@ -50,10 +49,6 @@ offset_right = 503.0
 offset_bottom = 835.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
 text = "misi"
-
-[node name="Settings" parent="." instance=ExtResource("2_41nwx")]
-visible = false
-layout_mode = 1
 
 [node name="PanelCoin" type="Panel" parent="."]
 layout_mode = 2
@@ -154,6 +149,7 @@ scale = Vector2(0.240234, 0.240234)
 texture = ExtResource("3_rruhm")
 
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MissionButton" to="." method="_on_mission_button_pressed"]
 [connection signal="pressed" from="PanelCoin/CoinStoreButton" to="." method="_on_coin_store_button_pressed"]
 [connection signal="pressed" from="PanelCoin/CoinStoreButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="PanelGems/GemStoreButton" to="." method="_on_gem_store_button_pressed"]
