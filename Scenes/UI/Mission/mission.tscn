@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://deo7gpdbxeqly"]
+[gd_scene load_steps=6 format=3 uid="uid://deo7gpdbxeqly"]
 
 [ext_resource type="Script" path="res://Scenes/UI/Mission/mission.gd" id="1_1lxvj"]
 [ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_y4dbx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8s34a"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ubmm"]
 bg_color = Color(0.6, 0.6, 0.6, 0.45098)
@@ -23,6 +26,19 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_1lxvj")
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -335.0
+offset_top = -501.0
+offset_right = 217.0
+offset_bottom = 687.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8s34a")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -68,6 +84,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer2/Panel/HBoxContainer"]
 layout_mode = 2
@@ -119,6 +136,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer3/Panel/HBoxContainer"]
 layout_mode = 2
@@ -169,6 +187,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer4/Panel/HBoxContainer"]
 layout_mode = 2
@@ -205,11 +224,18 @@ theme_override_colors/font_color = Color(0.351563, 0.351563, 0.351563, 1)
 text = "Claim"
 
 [node name="CloseButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 452.0
-offset_top = 19.0
-offset_right = 486.0
-offset_bottom = 53.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -173.0
+offset_right = -21.0
+offset_bottom = -139.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "X"
 
 [connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]

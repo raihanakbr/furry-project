@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://soq4402d6tl3"]
+[gd_scene load_steps=8 format=3 uid="uid://cssogflllgk3d"]
 
-[ext_resource type="Script" path="res://Scenes/Arcades/arcade.gd" id="1_5f558"]
-[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_ifpuf"]
+[ext_resource type="Script" path="res://Scenes/Arcades/arcade_2.gd" id="1_nrf5r"]
+[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_ykext"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajclk"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -23,12 +23,12 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="Node2D" type="Node2D"]
-position = Vector2(0, 1)
-script = ExtResource("1_5f558")
+position = Vector2(2, 1)
+script = ExtResource("1_nrf5r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("1_ykext")
 
 [node name="UpgradeButton" type="Button" parent="Sprite2D"]
 visible = false
@@ -105,47 +105,47 @@ fit_content = true
 
 [node name="TextureRect" type="TextureRect" parent="Panel"]
 layout_mode = 0
-offset_left = 11.2862
-offset_top = 59.0864
-offset_right = 139.286
-offset_bottom = 187.086
+offset_left = 14.0
+offset_top = 59.0
+offset_right = 142.0
+offset_bottom = 187.0
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("1_ykext")
 expand_mode = 5
 stretch_mode = 2
 
 [node name="OldLabel" type="RichTextLabel" parent="Panel/TextureRect"]
 layout_mode = 0
-offset_left = 124.0
-offset_top = 15.0
-offset_right = 323.0
-offset_bottom = 139.0
+offset_left = 123.6
+offset_top = 15.45
+offset_right = 270.6
+offset_bottom = 139.45
 theme_override_font_sizes/bold_font_size = 72
 bbcode_enabled = true
 text = "[center][b][color=#000000]10[/color][/b][/center]"
 
 [node name="Polygon2D2" type="Polygon2D" parent="Panel"]
-position = Vector2(14.6056, -9.29449)
-scale = Vector2(0.809669, 0.903289)
+position = Vector2(2, -18)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(52, 82, 86, 82, 86, 77, 96, 86, 86, 94, 86, 89, 52, 89, 52, 89)
 
 [node name="TextureRect2" type="TextureRect" parent="Panel"]
-offset_left = 102.903
-offset_top = 59.0864
-offset_right = 230.903
-offset_bottom = 187.086
+layout_mode = 0
+offset_left = 106.0
+offset_top = 59.0
+offset_right = 234.0
+offset_bottom = 187.0
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("1_ykext")
 expand_mode = 5
 stretch_mode = 2
 
 [node name="NewLabel" type="RichTextLabel" parent="Panel/TextureRect2"]
 layout_mode = 0
-offset_left = 128.215
-offset_top = 20.5143
-offset_right = 322.215
-offset_bottom = 144.514
+offset_left = 123.6
+offset_top = 15.45
+offset_right = 270.6
+offset_bottom = 139.45
 theme_override_font_sizes/bold_font_size = 72
 bbcode_enabled = true
 text = "[center][b][color=#000000]15[/color][/b][/center]"
@@ -170,6 +170,7 @@ text = "[center][color=#000000]Upgrade[/color][/center]"
 fit_content = true
 
 [node name="UpgradeButton" type="Button" parent="Panel"]
+layout_mode = 0
 offset_left = 6.63892
 offset_top = 120.165
 offset_right = 141.639
@@ -179,25 +180,26 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ffyyl")
 theme_override_styles/normal = SubResource("StyleBoxFlat_7kftp")
 
 [node name="TextureRect" type="TextureRect" parent="Panel/UpgradeButton"]
+layout_mode = 0
 offset_left = 47.0
 offset_top = 7.0
 offset_right = 175.0
 offset_bottom = 135.0
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("1_ykext")
 expand_mode = 5
 stretch_mode = 2
 
 [node name="CostLabel" type="RichTextLabel" parent="Panel/UpgradeButton/TextureRect"]
 layout_mode = 0
-offset_left = 165.168
-offset_top = 12.5961
-offset_right = 622.168
-offset_bottom = 136.596
+offset_left = 162.226
+offset_top = 15.45
+offset_right = 309.226
+offset_bottom = 139.45
 mouse_filter = 2
 theme_override_font_sizes/bold_font_size = 72
 bbcode_enabled = true
-text = "[b][color=#000000]100[/color][/b]"
+text = "[center][b][color=#000000]100[/color][/b][/center]"
 
 [connection signal="pressed" from="Sprite2D/UpgradeButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Sprite2D/Button" to="." method="_on_button_pressed"]

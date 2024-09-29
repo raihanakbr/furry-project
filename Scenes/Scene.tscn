@@ -1,9 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://bu3foh7rt1xdw"]
+[gd_scene load_steps=6 format=3 uid="uid://bmbln82yg2g8a"]
 
-[ext_resource type="PackedScene" uid="uid://d0uqee38k3rk5" path="res://Scenes/UI/UI.tscn" id="1_cqrkc"]
+[ext_resource type="PackedScene" uid="uid://d1xy6rbtgvkv0" path="res://Scenes/UI/UI.tscn" id="1_cqrkc"]
+[ext_resource type="PackedScene" uid="uid://soq4402d6tl3" path="res://Scenes/Arcades/arcade.tscn" id="2_xpi6x"]
+[ext_resource type="PackedScene" uid="uid://cvpx1146onrai" path="res://Scenes/Arcades/arcade_2.tscn" id="3_20yyo"]
+[ext_resource type="PackedScene" uid="uid://dwma4ppgb0x85" path="res://Scenes/Arcades/arcade_3.tscn" id="4_pbeag"]
+[ext_resource type="PackedScene" uid="uid://uwi72ummvqbc" path="res://Scenes/Arcades/arcade_4.tscn" id="5_cdxea"]
 
 [node name="Node2D" type="Node"]
 
+[node name="Node2D" parent="." instance=ExtResource("2_xpi6x")]
+position = Vector2(370, 835)
+
 [node name="UI" parent="." instance=ExtResource("1_cqrkc")]
+offset_left = -4.0
+offset_top = 1.0
+offset_right = -4.0
+offset_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Node2D2" parent="." instance=ExtResource("3_20yyo")]
+position = Vector2(585, 832)
+
+[node name="Node2D3" parent="." instance=ExtResource("4_pbeag")]
+position = Vector2(117, 1007)
+
+[node name="Node2D4" parent="." instance=ExtResource("5_cdxea")]
+position = Vector2(149, 790)

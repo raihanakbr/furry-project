@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0uqee38k3rk5"]
+[gd_scene load_steps=7 format=3 uid="uid://d1xy6rbtgvkv0"]
 
 [ext_resource type="Script" path="res://Scenes/UI/ui.gd" id="1_0d6d5"]
 [ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="3_rruhm"]
@@ -11,8 +11,8 @@ bg_color = Color(0, 0.685938, 0.691531, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7o2c"]
 bg_color = Color(1, 1, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r6d5v"]
-bg_color = Color(1.15514e-05, 0.657778, 0.856083, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5lumr"]
+bg_color = Color(4.42803e-06, 0.785262, 0.857856, 1)
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -21,136 +21,146 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_0d6d5")
 
-[node name="SettingsButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 22.0
-offset_right = 85.0
-offset_bottom = 85.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
-text = "settings"
-
 [node name="MissionButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 45.0
-offset_top = 854.0
-offset_right = 122.0
-offset_bottom = 933.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
-text = "misi"
-
-[node name="Button5" type="Button" parent="."]
-layout_mode = 0
-offset_left = 426.0
-offset_top = 756.0
-offset_right = 503.0
-offset_bottom = 835.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = -152.0
+offset_right = 113.0
+offset_bottom = -72.9999
+grow_vertical = 0
+scale = Vector2(1.41088, 1.41088)
 theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
 text = "misi"
 
 [node name="PanelCoin" type="Panel" parent="."]
-layout_mode = 2
-offset_left = 167.0
-offset_top = 24.0
-offset_right = 305.0
-offset_bottom = 64.0
+layout_mode = 1
+anchors_preset = -1
+offset_left = 186.0
+offset_top = 106.0
+offset_right = 393.0
+offset_bottom = 165.0
 scale = Vector2(1.11624, 1.11624)
 theme_override_styles/panel = SubResource("StyleBoxFlat_mgngk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelCoin"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.342
-anchor_right = 0.746
+anchor_left = 0.298
+anchor_right = 0.8
 anchor_bottom = 1.0
-offset_left = -9.196
+offset_left = 0.313999
 offset_top = 2.0
-offset_right = 2.05199
-offset_bottom = -2.0
+offset_right = -3.60001
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelCoin/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/bold_font_size = 0
 bbcode_enabled = true
-text = "[center]69[/center]"
+text = "[center][b]69[/b][/center]"
 fit_content = true
 
 [node name="CoinStoreButton" type="Button" parent="PanelCoin"]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -12.0
-offset_right = -8.0
-offset_bottom = 12.0
+anchors_preset = -1
+anchor_left = 0.835
+anchor_top = 0.319
+anchor_right = 0.951
+anchor_bottom = 0.726
+offset_left = -4.42244
+offset_top = -4.48717
+offset_right = 2.56555
+offset_bottom = 2.49983
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_a7o2c")
 
 [node name="Icon" type="Sprite2D" parent="PanelCoin"]
-position = Vector2(21, 21)
-scale = Vector2(0.240234, 0.240234)
+position = Vector2(30.0255, 29.1296)
+scale = Vector2(0.356727, 0.356727)
 texture = ExtResource("3_rruhm")
 
+[node name="SettingsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 38.0
+offset_top = 52.0
+offset_right = 139.0
+offset_bottom = 153.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
+text = "settings"
+
+[node name="Button5" type="Button" parent="."]
+layout_mode = 2
+offset_left = 584.0
+offset_top = 1021.0
+offset_right = 679.0
+offset_bottom = 1106.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
+text = "misi"
+
 [node name="PanelGems" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 353.0
-offset_top = 24.0
-offset_right = 491.0
-offset_bottom = 64.0
-scale = Vector2(1.116, 1.116)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 454.0
+offset_top = 106.0
+offset_right = 661.0
+offset_bottom = 165.0
+scale = Vector2(1.11624, 1.11624)
 theme_override_styles/panel = SubResource("StyleBoxFlat_mgngk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelGems"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.342
-anchor_right = 0.746
+anchor_left = 0.298
+anchor_right = 0.8
 anchor_bottom = 1.0
-offset_left = -9.196
+offset_left = 0.313999
 offset_top = 2.0
-offset_right = 2.05199
-offset_bottom = -2.0
+offset_right = -3.60001
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelGems/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/bold_font_size = 0
 bbcode_enabled = true
-text = "[center]69[/center]"
+text = "[center][b]69[/b][/center]"
 fit_content = true
 
 [node name="GemStoreButton" type="Button" parent="PanelGems"]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -33.0
-offset_top = -12.0
-offset_right = -9.0
-offset_bottom = 12.0
+anchors_preset = -1
+anchor_left = 0.835
+anchor_top = 0.319
+anchor_right = 0.951
+anchor_bottom = 0.726
+offset_left = -4.42244
+offset_top = -4.48717
+offset_right = 2.56555
+offset_bottom = 2.49983
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_r6d5v")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5lumr")
 
 [node name="Icon" type="Sprite2D" parent="PanelGems"]
-position = Vector2(21, 21)
-scale = Vector2(0.240234, 0.240234)
+position = Vector2(30.0255, 29.1296)
+scale = Vector2(0.356727, 0.356727)
 texture = ExtResource("3_rruhm")
 
-[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MissionButton" to="." method="_on_mission_button_pressed"]
 [connection signal="pressed" from="PanelCoin/CoinStoreButton" to="." method="_on_coin_store_button_pressed"]
 [connection signal="pressed" from="PanelCoin/CoinStoreButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PanelGems/GemStoreButton" to="." method="_on_gem_store_button_pressed"]
-[connection signal="pressed" from="PanelGems/GemStoreButton" to="." method="_on_button_pressed"]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://soq4402d6tl3"]
+[gd_scene load_steps=8 format=3 uid="uid://dwma4ppgb0x85"]
 
-[ext_resource type="Script" path="res://Scenes/Arcades/arcade.gd" id="1_5f558"]
-[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_ifpuf"]
+[ext_resource type="Script" path="res://Scenes/Arcades/arcade_3.gd" id="1_mp72i"]
+[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="2_pljnn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajclk"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -24,11 +24,11 @@ corner_radius_bottom_left = 5
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(0, 1)
-script = ExtResource("1_5f558")
+script = ExtResource("1_mp72i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("2_pljnn")
 
 [node name="UpgradeButton" type="Button" parent="Sprite2D"]
 visible = false
@@ -110,7 +110,7 @@ offset_top = 59.0864
 offset_right = 139.286
 offset_bottom = 187.086
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("2_pljnn")
 expand_mode = 5
 stretch_mode = 2
 
@@ -131,12 +131,13 @@ color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(52, 82, 86, 82, 86, 77, 96, 86, 86, 94, 86, 89, 52, 89, 52, 89)
 
 [node name="TextureRect2" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 102.903
 offset_top = 59.0864
 offset_right = 230.903
 offset_bottom = 187.086
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("2_pljnn")
 expand_mode = 5
 stretch_mode = 2
 
@@ -170,6 +171,7 @@ text = "[center][color=#000000]Upgrade[/color][/center]"
 fit_content = true
 
 [node name="UpgradeButton" type="Button" parent="Panel"]
+layout_mode = 0
 offset_left = 6.63892
 offset_top = 120.165
 offset_right = 141.639
@@ -179,12 +181,13 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ffyyl")
 theme_override_styles/normal = SubResource("StyleBoxFlat_7kftp")
 
 [node name="TextureRect" type="TextureRect" parent="Panel/UpgradeButton"]
+layout_mode = 0
 offset_left = 47.0
 offset_top = 7.0
 offset_right = 175.0
 offset_bottom = 135.0
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("2_pljnn")
 expand_mode = 5
 stretch_mode = 2
 

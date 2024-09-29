@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const speed = 60
+const speed = 200
 
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var play_time := $Timer as Timer
@@ -17,6 +17,7 @@ func _physics_process(_delta: float) -> void:
 		return
 		
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
+	print(to_local(nav_agent.get_next_path_position()))
 	velocity = dir * speed
 	move_and_slide()
 	
@@ -42,4 +43,4 @@ func _on_navigation_agent_2d_target_reached() -> void:
 func _on_timer_timeout() -> void:
 	hasPlayed = true
 	Globals.arcadeGames[idx].isOccupied = false
-	nav_agent.target_position = Vector2(472, 1022)
+	nav_agent.target_position = Vector2(212, 1223)
