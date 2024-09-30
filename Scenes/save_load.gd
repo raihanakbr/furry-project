@@ -27,6 +27,7 @@ func _process(delta: float) -> void:
 		load_game()
 	
 func save_game() -> void:
+	print("wpy")
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	
 	var save_dict := {

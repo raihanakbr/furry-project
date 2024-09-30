@@ -108,7 +108,11 @@ func save_game() -> void:
 	for i in range(time_frame):
 		money_per_seconds += money_history[60 - time_frame + i]
 	
-	money_per_seconds /= time_frame
+	if time_frame >= 1:
+		money_per_seconds /= time_frame
+	else:
+		money_per_seconds = 0
+		
 	print(money_per_seconds)
 	
 	var save_dict := {
@@ -165,4 +169,4 @@ func format_time(seconds: int) -> String:
 
 func _on_claim_button_pressed() -> void:
 	Globals.money += offline_money
-	queue_free()
+	visible = false
