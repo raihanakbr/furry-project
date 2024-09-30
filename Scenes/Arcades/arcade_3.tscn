@@ -22,11 +22,12 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" groups=["arcade"]]
 position = Vector2(0, 1)
 script = ExtResource("1_mp72i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.936341, 0.862691, 0.352199, 1)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_pljnn")
 

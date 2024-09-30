@@ -7,6 +7,7 @@ const speed = 200
 
 var idx = -1
 var hasPlayed: bool = false
+var target: ArcadeMachine
 
 func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
@@ -17,7 +18,6 @@ func _physics_process(_delta: float) -> void:
 		return
 		
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
-	print(to_local(nav_agent.get_next_path_position()))
 	velocity = dir * speed
 	move_and_slide()
 	
@@ -33,14 +33,17 @@ func makepath() -> void:
 		queue_free()
 		return
 		
-	nav_agent.target_position = Globals.arcadeGames[idx].global_position + Vector2(0, 50)
+	target = Globals.arcadeGames[idx]
+	nav_agent.target_position = target.global_position + Vector2(0, 50)
 	
 func _on_navigation_agent_2d_target_reached() -> void:
 	play_time.start()
 	if hasPlayed:
 		queue_free()
+	else:
+		target.generate_money()
 	
 func _on_timer_timeout() -> void:
 	hasPlayed = true
 	Globals.arcadeGames[idx].isOccupied = false
-	nav_agent.target_position = Vector2(212, 1223)
+	nav_agent.target_position = Vector2(212, 950)

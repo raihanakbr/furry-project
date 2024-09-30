@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvnr2"]
 size = Vector2(64, 64)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["npc"]]
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_iadox")
@@ -20,7 +20,6 @@ shape = SubResource("RectangleShape2D_fvnr2")
 disabled = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
 
 [node name="Node2D" type="Node2D" parent="."]
 

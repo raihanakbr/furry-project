@@ -160,7 +160,7 @@ scale = Vector2(0.356727, 0.356727)
 texture = ExtResource("3_rruhm")
 
 [connection signal="pressed" from="MissionButton" to="." method="_on_mission_button_pressed"]
-[connection signal="pressed" from="PanelCoin/CoinStoreButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="PanelCoin/CoinStoreButton" to="." method="_on_coin_store_button_pressed"]
+[connection signal="pressed" from="PanelCoin/CoinStoreButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PanelGems/GemStoreButton" to="." method="_on_gem_store_button_pressed"]
