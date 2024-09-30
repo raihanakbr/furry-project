@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cmw2wbbmfr4bu"]
+[gd_scene load_steps=14 format=3 uid="uid://cmw2wbbmfr4bu"]
 
 [ext_resource type="Script" path="res://Scenes/save_load.gd" id="1_bmlud"]
 [ext_resource type="Script" path="res://Scenes/test_arcade.gd" id="1_wq508"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="2_w6044"]
 [ext_resource type="Script" path="res://Scenes/Arcades/camera.gd" id="5_slw8u"]
 [ext_resource type="PackedScene" uid="uid://soq4402d6tl3" path="res://Scenes/Arcades/arcade.tscn" id="6_bkpwf"]
+[ext_resource type="PackedScene" uid="uid://dhbh3f5llx1c8" path="res://Scenes/UI/Misc/OfflineIncome.tscn" id="7_kxo8g"]
 [ext_resource type="PackedScene" uid="uid://d1xy6rbtgvkv0" path="res://Scenes/UI/UI.tscn" id="7_mhyig"]
 [ext_resource type="PackedScene" uid="uid://dwma4ppgb0x85" path="res://Scenes/Arcades/arcade_3.tscn" id="8_uyt8t"]
 [ext_resource type="PackedScene" uid="uid://uwi72ummvqbc" path="res://Scenes/Arcades/arcade_4.tscn" id="9_2k65m"]
@@ -44,6 +45,9 @@ position = Vector2(66, -285)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource("7_mhyig")]
+
+[node name="OfflineIncome" parent="CanvasLayer" instance=ExtResource("7_kxo8g")]
+visible = false
 
 [node name="SaveLoad" type="Node2D" parent="."]
 script = ExtResource("1_bmlud")

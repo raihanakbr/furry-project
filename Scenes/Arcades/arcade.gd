@@ -1,6 +1,7 @@
 extends Node2D
 
 class_name ArcadeMachine
+signal money_generated(amount: int)
 @onready var upgrade_panel := $Panel as Panel
 @onready var upgrade_sign := $Sprite2D/UpgradeButton as Button
 @onready var upgrade_button := $Panel/UpgradeButton as Button
@@ -33,6 +34,7 @@ func _process(_delta: float) -> void:
 
 func generate_money():
 	Globals.money += money_per_played
+	emit_signal("money_generated", money_per_played)
 
 func _upgrade():
 	Globals.money -= upgrade_cost

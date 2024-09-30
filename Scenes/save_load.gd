@@ -14,20 +14,21 @@ func _notification(what):
 func _ready() -> void:
 	await get_tree().process_frame
 	load_game()
+	var arcade_machines = get_tree().get_nodes_in_group("arcade")
+	for arcade in arcade_machines:
+		arcade.connect("money_generated", Callable(self, "add_money"))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_s"):
-		print("konz")
 		save_game()
 	if Input.is_action_just_pressed("ui_l"):
-		print(10)
 		load_game()
 	
 func save_game() -> void:
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-
+	
 	var save_dict := {
 		game = {
 			money = var_to_str(Globals.money),
@@ -46,7 +47,6 @@ func save_game() -> void:
 			arcade_class = "ArcadeMachine4"
 		else:
 			arcade_class = "ArcadeMachine"
-		print(arcade_class)
 		save_dict.arcades.push_back({
 			position = var_to_str(arcade_game.position),
 			money_per_played = var_to_str(arcade_game.money_per_played),
@@ -97,4 +97,4 @@ func load_game() -> void:
 		arcade_instance.level = str_to_var(arcade_config.level)
 		arcade_instance.upgrade_cost = str_to_var(arcade_config.upgrade_cost)
 		arcade_instance.money_inc = str_to_var(arcade_config.money_inc)
-		
+	

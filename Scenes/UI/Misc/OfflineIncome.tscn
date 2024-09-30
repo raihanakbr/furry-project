@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhbh3f5llx1c8"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Misc/offline_income.gd" id="1_7d0ay"]
+[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="2_5d2yf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1yfwk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5a1gl"]
+bg_color = Color(0.868985, 0.868985, 0.868985, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_asc7o"]
+bg_color = Color(0.462745, 0.819608, 0.678431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wicm"]
+bg_color = Color(0.301961, 0.658824, 0.521569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byun2"]
+bg_color = Color(0.376471, 0.768627, 0.611765, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="OfflineIncome" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7d0ay")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1yfwk")
+
+[node name="Panel" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 57.0
+offset_top = -234.0
+offset_right = -57.0
+offset_bottom = 224.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5a1gl")
+
+[node name="Label" type="RichTextLabel" parent="Panel/Panel"]
+layout_mode = 1
+offset_top = 14.0
+offset_right = 600.0
+offset_bottom = 91.0
+theme_override_constants/table_v_separation = 0
+theme_override_constants/table_h_separation = 0
+theme_override_constants/line_separation = 0
+theme_override_font_sizes/bold_font_size = 56
+bbcode_enabled = true
+text = "[center][b][color=#000000]Offline Money[/color][/b][/center]"
+fit_content = true
+
+[node name="MoneyLabel" type="RichTextLabel" parent="Panel/Panel"]
+layout_mode = 1
+offset_left = -1.0
+offset_top = 228.0
+offset_right = 605.0
+offset_bottom = 306.0
+theme_override_constants/table_v_separation = 0
+theme_override_constants/table_h_separation = 0
+theme_override_constants/line_separation = 0
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 56
+bbcode_enabled = true
+text = "[center][color=#000000]6969[/color][/center]"
+fit_content = true
+
+[node name="ClaimButton" type="Button" parent="Panel/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -175.0
+offset_top = -81.0
+offset_right = 314.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+theme_override_styles/hover = SubResource("StyleBoxFlat_asc7o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7wicm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_byun2")
+
+[node name="CostLabel" type="RichTextLabel" parent="Panel/Panel/ClaimButton"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 10.0
+offset_right = 465.0
+offset_bottom = 89.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 42
+bbcode_enabled = true
+text = "[center][b][color=#000000]Claim[/color][/b][/center]"
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel/Panel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 314.0
+offset_right = 598.0
+offset_bottom = 357.0
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Panel/ProgressBar"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 9.0
+offset_right = 577.0
+offset_bottom = 51.0
+bbcode_enabled = true
+text = "[center][b][color=#000000]Claim[/color][/b][/center]"
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Panel"]
+layout_mode = 1
+offset_left = 256.0
+offset_top = 117.0
+offset_right = 341.0
+offset_bottom = 202.0
+texture = ExtResource("2_5d2yf")
+expand_mode = 1
+
+[connection signal="pressed" from="Panel/Panel/ClaimButton" to="." method="_on_claim_button_pressed"]
