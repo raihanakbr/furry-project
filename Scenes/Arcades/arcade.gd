@@ -70,7 +70,7 @@ func _on_button_pressed() -> void:
 			if panel:
 				panel.visible = false
 		upgrade_panel.visible = true
-		upgrade_panel.z_index = 100
+		upgrade_panel.z_index = 10
 	else:
 		upgrade_panel.visible = false
 	

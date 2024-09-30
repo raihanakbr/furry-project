@@ -131,6 +131,7 @@ color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(52, 82, 86, 82, 86, 77, 96, 86, 86, 94, 86, 89, 52, 89, 52, 89)
 
 [node name="TextureRect2" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 102.903
 offset_top = 59.0864
 offset_right = 230.903
@@ -170,6 +171,7 @@ text = "[center][color=#000000]Upgrade[/color][/center]"
 fit_content = true
 
 [node name="UpgradeButton" type="Button" parent="Panel"]
+layout_mode = 0
 offset_left = 6.63892
 offset_top = 120.165
 offset_right = 141.639
@@ -179,6 +181,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ffyyl")
 theme_override_styles/normal = SubResource("StyleBoxFlat_7kftp")
 
 [node name="TextureRect" type="TextureRect" parent="Panel/UpgradeButton"]
+layout_mode = 0
 offset_left = 47.0
 offset_top = 7.0
 offset_right = 175.0
