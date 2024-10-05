@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cmw2wbbmfr4bu"]
+[gd_scene load_steps=15 format=3 uid="uid://cmw2wbbmfr4bu"]
 
 [ext_resource type="Script" path="res://Scenes/save_load.gd" id="1_bmlud"]
 [ext_resource type="Script" path="res://Scenes/test_arcade.gd" id="1_wq508"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dwma4ppgb0x85" path="res://Scenes/Arcades/arcade_3.tscn" id="8_uyt8t"]
 [ext_resource type="PackedScene" uid="uid://uwi72ummvqbc" path="res://Scenes/Arcades/arcade_4.tscn" id="9_2k65m"]
 [ext_resource type="PackedScene" uid="uid://cvpx1146onrai" path="res://Scenes/Arcades/arcade_2.tscn" id="9_xos7m"]
+[ext_resource type="Script" path="res://Scenes/http_request_manager.gd" id="12_7n74c"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ymmed"]
 
@@ -47,6 +48,7 @@ position = Vector2(66, -285)
 [node name="UI" parent="CanvasLayer" instance=ExtResource("7_mhyig")]
 
 [node name="OfflineIncome" parent="CanvasLayer" instance=ExtResource("7_kxo8g")]
+visible = false
 
 [node name="SaveLoad" type="Node2D" parent="."]
 script = ExtResource("1_bmlud")
@@ -63,5 +65,8 @@ position = Vector2(-135, -351)
 
 [node name="Node2D5" parent="." instance=ExtResource("9_2k65m")]
 position = Vector2(919, -237)
+
+[node name="HTTPRequestManager" type="Node2D" parent="."]
+script = ExtResource("12_7n74c")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

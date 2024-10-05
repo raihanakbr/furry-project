@@ -1,12 +1,12 @@
 extends Control
 
-const SAVE_PATH =  "user://save_time.json"
-const SAVE_TIME_PATH =  "user://tmp.dat"
+const SAVE_PATH =  "user://save_mps.json"
+const SAVE_TIME_PATH =  "user://save_time.dat"
 @onready var money_label := $Panel/Panel/MoneyLabel as RichTextLabel
 @onready var progress_bar := $Panel/Panel/ProgressBar as ProgressBar
 @onready var progress_label := $Panel/Panel/ProgressBar/RichTextLabel as RichTextLabel
-
-var max_offline_minutes: int = 120
+@onready var http_request_manager = preload("res://Scenes/http_request_manager.gd").new()
+var max_offline_minutes: int = 300
 var money_history: Array = []
 var total_money_in_last_60_seconds: int = 0
 var money_generated_this_second: int = 0 
@@ -14,6 +14,10 @@ var timer: Timer
 var start_time: int
 var last_logout_time = 0
 var offline_money = 0
+var start_unix_time
+var can_save = true
+var save_load
+var is_loaded
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -24,13 +28,52 @@ func _notification(what):
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().process_frame
+	add_child(http_request_manager)
+	$Panel2.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	http_request_manager.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+
+	get_tree().paused = true
+	http_request_manager.connect("request_completed", Callable(self, "_on_request_completed"))
+	http_request_manager.connect("request_timeout", Callable(self, "_on_request_timeout"))
+	http_request_manager.send_request("http://worldtimeapi.org/api/timezone/Asia/Jakarta")
+	
+	var save_load = get_node("/root/Node2D/SaveLoad")
+	save_load.connect("game_loaded", Callable(self, "_set_is_loaded"))
+
+func _set_is_loaded():
+	is_loaded = true
+	print("konz")
+	print(start_unix_time)
+	if start_unix_time:
+		is_loaded = false
+		_on_game_loaded()
+
+func _on_request_timeout():
+	$Panel2.visible = true
+	$Panel2/Panel/TryAgainButton.disabled = false
+	
+func _on_request_completed(result, response_code, headers, body):
+	var json = JSON.new()
+	json.parse(body.get_string_from_utf8())
+	var response = json.get_data()
+	if response_code == 200:
+		if response['unixtime']:
+			start_unix_time = response['unixtime']
+			print("kont")
+			print(is_loaded)
+			if is_loaded:
+				is_loaded = false
+				_on_game_loaded()
+
+func _on_game_loaded() -> void:
+	get_tree().paused = false
 	progress_bar.min_value = 0
 	progress_bar.max_value = max_offline_minutes
 	offline_money = calculate_offline_income()
 	if offline_money:
 		money_label.text = "[center][color=#000000]%d[/color][/center]" % offline_money
-		visible = true
-	
+		$Panel.visible = true
+		$Panel2.visible = false
 	for i in range(60):
 		money_history.append(0)
 	timer = Timer.new()
@@ -40,49 +83,59 @@ func _ready() -> void:
 	timer.connect("timeout", Callable(self, "_update_money_history"))
 	add_child(timer)
 	start_time = Time.get_ticks_msec()
-	var arcade_machines = get_tree().get_nodes_in_group("arcade")
+	var arcade_machines = Globals.arcadeGames
 	for arcade in arcade_machines:
 		arcade.connect("money_generated", Callable(self, "add_money"))
-		
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_s"):
 		save_game()
 	if Input.is_action_just_pressed("ui_l"):
+		pass
 		#load_game()
-		print(money_history)
 	
 	
-func save_logout_time():
-	last_logout_time = Time.get_unix_time_from_system()
+func save_logout_time(logout_time):
+	print(logout_time)	
 	if DirAccess.dir_exists_absolute(SAVE_TIME_PATH):
-		print("konz")
 		DirAccess.remove_absolute(SAVE_TIME_PATH)
 
 	var file = FileAccess.open(SAVE_TIME_PATH, FileAccess.WRITE)
-	file.store_var(last_logout_time)
-	file.close()
-	
-func calculate_offline_income():
-	var file = FileAccess.open(SAVE_TIME_PATH, FileAccess.READ)
-	if file == null:
-		return 0
-	last_logout_time = file.get_var()
+	file.store_var(logout_time)
 	file.close()
 
-	var current_time = Time.get_unix_time_from_system()
+func calculate_offline_income():
+	var file = FileAccess.open(SAVE_TIME_PATH, FileAccess.READ)
+	var file_mps = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	
+	if file == null:
+		print("k")
+		return 0
+	if file_mps == null:
+		print("o")
+		return 0
+	
+	last_logout_time = file.get_var()
+	file.close()
+	
+	var json := JSON.new()
+	json.parse(file_mps.get_line())
+	if !json.get_data():
+		return 0
+	var save_dict := json.get_data() as Dictionary
+	var money_per_second = str_to_var(save_dict.mps)
+	file_mps.close()
+
+	var current_time = start_unix_time
 	var offline_duration = current_time - last_logout_time
-	update_offline_time(offline_duration)
 
 	var max_offline_duration = max_offline_minutes * 60
 	offline_duration = min(offline_duration, max_offline_duration)
-
-	var money_per_second = 10
-	var balancing_factor = 0.2 
+	update_offline_time(offline_duration)
+	var balancing_factor = 0.2
 	var total_offline_income = money_per_second * offline_duration * balancing_factor
-
+	
 	return total_offline_income
 
 func update_offline_time(offline_seconds: int):
@@ -93,37 +146,37 @@ func update_offline_time(offline_seconds: int):
 	progress_bar.value = offline_minutes
 	
 	var formatted_time = format_time(offline_seconds)
-	progress_label.text = "[center][b][color=#000000]%s[/color][/b][/center]" %(formatted_time + " / 2 hours")
-
-	print("Offline time: ", offline_minutes, " minutes")
+	var max_offline = format_time(max_offline_minutes * 60)
+	progress_label.text = "[center][b][color=#000000]%s / %s[/color][/b][/center]" % [formatted_time, max_offline]
 
 func save_game() -> void:
-	print("konz")
-	save_logout_time()
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if $Panel.visible:
+		Globals.add_money(offline_money)
+	
+	var logout_unix_time = start_unix_time + get_elapsed_time()
+	save_logout_time(logout_unix_time)
+	
 	var elapsed_seconds : int = get_elapsed_time()
 	var time_frame = min(elapsed_seconds, 60)
 	var money_per_seconds = 0
 
 	for i in range(time_frame):
 		money_per_seconds += money_history[60 - time_frame + i]
-	
 	if time_frame >= 1:
-		money_per_seconds /= time_frame
+		money_per_seconds /= time_frame	
 	else:
 		money_per_seconds = 0
-		
-	print(money_per_seconds)
-	
+	if !money_per_seconds:
+		return
 	var save_dict := {
-		game = {
-			mps = var_to_str(money_per_seconds),
-		},
-		arcades = [],
+		mps = var_to_str(money_per_seconds),
 	}
+	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	file.store_line(JSON.stringify(save_dict))
 		
 func _update_money_history():
+	remove_child(timer)
+	
 	# Add the money generated this second to the history array
 	money_history.append(money_generated_this_second)
 
@@ -168,5 +221,11 @@ func format_time(seconds: int) -> String:
 	return formatted_time
 
 func _on_claim_button_pressed() -> void:
-	Globals.money += offline_money
-	visible = false
+	Globals.add_money(offline_money)
+	$Panel.visible = false
+
+
+func _on_try_again_button_pressed() -> void:
+	print("konz")
+	$Panel2/Panel/TryAgainButton.disabled = true
+	http_request_manager.send_request("http://worldtimeapi.org/api/timezone/Asia/Jakarta")

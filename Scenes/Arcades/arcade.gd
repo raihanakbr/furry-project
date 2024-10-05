@@ -33,11 +33,11 @@ func _process(_delta: float) -> void:
 	_update_label()
 
 func generate_money():
-	Globals.money += money_per_played
+	Globals.add_money(money_per_played)
 	emit_signal("money_generated", money_per_played)
 
 func _upgrade():
-	Globals.money -= upgrade_cost
+	Globals.sub_money(upgrade_cost)
 	money_per_played += money_inc
 	level += 1
 	if (level+1) % 10 == 0 && ((level+1)/10) & ((level+1)/10-1) == 0:

@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://deo7gpdbxeqly"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Mission/mission.gd" id="1_1lxvj"]
+[ext_resource type="Script" path="res://Scenes/UI/Mission/mission_controller.gd" id="1_1lxvj"]
 [ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_y4dbx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8s34a"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ubmm"]
-bg_color = Color(0.6, 0.6, 0.6, 0.45098)
+bg_color = Color(0.6, 0.6, 0.6, 0.85098)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwjr4"]
 bg_color = Color(0.309685, 0.65886, 0.235839, 1)
@@ -45,6 +45,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4ubmm")

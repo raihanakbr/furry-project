@@ -3,6 +3,9 @@ extends Node2D
 @export var game_node: NodePath
 const SAVE_PATH =  "user://savegame.json"
 
+signal game_loaded
+
+
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		save_game()
@@ -14,20 +17,8 @@ func _notification(what):
 func _ready() -> void:
 	await get_tree().process_frame
 	load_game()
-	var arcade_machines = get_tree().get_nodes_in_group("arcade")
-	for arcade in arcade_machines:
-		arcade.connect("money_generated", Callable(self, "add_money"))
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_s"):
-		save_game()
-	if Input.is_action_just_pressed("ui_l"):
-		load_game()
 	
 func save_game() -> void:
-	print("wpy")
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	
 	var save_dict := {
@@ -98,4 +89,5 @@ func load_game() -> void:
 		arcade_instance.level = str_to_var(arcade_config.level)
 		arcade_instance.upgrade_cost = str_to_var(arcade_config.upgrade_cost)
 		arcade_instance.money_inc = str_to_var(arcade_config.money_inc)
+	emit_signal("game_loaded")
 	

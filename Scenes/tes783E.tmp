@@ -47,6 +47,7 @@ position = Vector2(66, -285)
 [node name="UI" parent="CanvasLayer" instance=ExtResource("7_mhyig")]
 
 [node name="OfflineIncome" parent="CanvasLayer" instance=ExtResource("7_kxo8g")]
+visible = false
 
 [node name="SaveLoad" type="Node2D" parent="."]
 script = ExtResource("1_bmlud")
