@@ -37,7 +37,9 @@ func handle_drag(event: InputEventScreenDrag):
 	
 	if touch_points.size() == 1:
 		if can_pan:
-			offset -= event.relative * pan_speed / zoom.x
+			position -= event.relative * pan_speed / zoom.x
+			position.x = clamp(position.x, -1000, 1000)
+			position.y = clamp(position.y, -1000, 1000)
 	
 	if touch_points.size() == 2:
 		var touch_points_positions = touch_points.values()
@@ -49,10 +51,10 @@ func handle_drag(event: InputEventScreenDrag):
 		limit_zoom(zoom)
 
 func limit_zoom(new_zoom):
-	if new_zoom.x < 0.1:
-		zoom.x = 0.1
-	if new_zoom.y < 0.1:
-		zoom.y = 0.1
+	if new_zoom.x < 0.4:
+		zoom.x = 0.4
+	if new_zoom.y < 0.4:
+		zoom.y = 0.4
 	if new_zoom.x > 10:
 		zoom.x = 10
 	if new_zoom.y > 10:

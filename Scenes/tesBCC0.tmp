@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cmw2wbbmfr4bu"]
+[gd_scene load_steps=13 format=3 uid="uid://cmw2wbbmfr4bu"]
 
 [ext_resource type="Script" path="res://Scenes/save_load.gd" id="1_bmlud"]
 [ext_resource type="Script" path="res://Scenes/test_arcade.gd" id="1_wq508"]
@@ -14,9 +14,6 @@
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ymmed"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slmmy"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyeo1"]
-bg_color = Color(0, 0.686275, 0.690196, 1)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_wq508")
@@ -48,21 +45,8 @@ position = Vector2(66, -285)
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource("7_mhyig")]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -47.0
-offset_top = -380.0
-offset_bottom = -327.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_hyeo1")
-text = "+"
-
 [node name="SaveLoad" type="Node2D" parent="."]
+visible = false
 script = ExtResource("1_bmlud")
 game_node = NodePath("..")
 
@@ -79,4 +63,3 @@ position = Vector2(-135, -351)
 position = Vector2(919, -237)
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="pressed" from="CanvasLayer/Button" to="NavigationRegion2D" method="_on_button_pressed"]

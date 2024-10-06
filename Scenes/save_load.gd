@@ -12,8 +12,9 @@ func _notification(what):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	await get_tree().process_frame
-	load_game()
+	#await get_tree().process_frame
+	#load_game()
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -7,6 +7,7 @@ const speed = 200
 
 var idx = -1
 var hasPlayed: bool = false
+var isPlaying: bool = false
 var target: ArcadeMachine
 
 func _ready() -> void:
@@ -15,6 +16,9 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Globals.arcadeGames == null:
+		return
+		
+	if isPlaying:
 		return
 		
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
@@ -37,6 +41,7 @@ func makepath() -> void:
 	nav_agent.target_position = target.global_position + Vector2(0, 50)
 	
 func _on_navigation_agent_2d_target_reached() -> void:
+	isPlaying = true
 	play_time.start()
 	if hasPlayed:
 		queue_free()
@@ -44,6 +49,7 @@ func _on_navigation_agent_2d_target_reached() -> void:
 		target.generate_money()
 	
 func _on_timer_timeout() -> void:
+	isPlaying = false
 	hasPlayed = true
 	Globals.arcadeGames[idx].isOccupied = false
 	nav_agent.target_position = Vector2(212, 950)
