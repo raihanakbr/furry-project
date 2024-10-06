@@ -93,7 +93,6 @@ func _clear_arcade_areas():
 	_tmp_arcade_aera = []
 	_add_button.text = "+"
 
-
 func _on_button_pressed() -> void:
 	if len(_tmp_arcade_aera) > 0:
 		_clear_arcade_areas()

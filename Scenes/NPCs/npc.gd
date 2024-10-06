@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name npc
 
 const speed = 200
 
