@@ -7,7 +7,8 @@ var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	Globals.http_request = HTTPRequest.new()
+	add_child(Globals.http_request)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

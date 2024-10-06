@@ -26,8 +26,8 @@ func _process(delta: float) -> void:
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventScreenTouch:
-		if Globals.money >= 100:
-			Globals.money -= 100
+		if Globals.money.compare(ArcadeMachine.buy_cost):
+			Globals.sub_money(ArcadeMachine.buy_cost)
 			var new_arcade_game = arcade_game.instantiate()
 			new_arcade_game.global_position = global_position
 			get_parent().add_child(new_arcade_game)

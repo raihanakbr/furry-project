@@ -42,6 +42,7 @@ func _ready():
 		Vector2(300, 400)
 	]
 	
+	
 	_arcade_area_positions.append(get_midpoint(hole2_points))
 	
 	# Add the second hole
