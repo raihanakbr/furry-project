@@ -36,7 +36,7 @@ func _http_request_completed(result, response_code, headers, body):
 	http_request.disconnect("request_completed", Callable(self, "_on_request_completed"))
 	
 func _on_request_timeout():
-	print("Request timed out")
+	print("konz")
 	emit_signal("request_timeout")
 
 	http_request.cancel_request()

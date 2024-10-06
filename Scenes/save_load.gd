@@ -23,8 +23,10 @@ func save_game() -> void:
 	
 	var save_dict := {
 		game = {
-			money = var_to_str(Globals.money),
-			gems = var_to_str(Globals.gems),
+			money_mant = var_to_str(Globals.money.mantissa),
+			money_exp = var_to_str(Globals.money.exponent),
+			gems_mant = var_to_str(Globals.gems.mantissa),
+			gems_exp = var_to_str(Globals.gems.exponent),
 		},
 		arcades = [],
 	}
@@ -41,10 +43,13 @@ func save_game() -> void:
 			arcade_class = "ArcadeMachine"
 		save_dict.arcades.push_back({
 			position = var_to_str(arcade_game.position),
-			money_per_played = var_to_str(arcade_game.money_per_played),
+			money_per_played_mant = var_to_str(arcade_game.money_per_played.mantissa),
+			money_per_played_exp = var_to_str(arcade_game.money_per_played.exponent),
 			level = var_to_str(arcade_game.level),
-			upgrade_cost = var_to_str(arcade_game.upgrade_cost),
-			money_inc = var_to_str(arcade_game.money_inc), 
+			upgrade_cost_mant = var_to_str(arcade_game.upgrade_cost.mantissa),
+			upgrade_cost_exp = var_to_str(arcade_game.upgrade_cost.exponent),
+			money_inc_mant = var_to_str(arcade_game.money_inc.mantissa), 
+			money_inc_exp = var_to_str(arcade_game.money_inc.exponent), 
 			arcade_type = arcade_class,
 		}) 
 	file.store_line(JSON.stringify(save_dict))
@@ -52,6 +57,7 @@ func save_game() -> void:
 func load_game() -> void:
 	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if file == null:
+		emit_signal("game_loaded")
 		return
 	var json := JSON.new()
 	json.parse(file.get_line())
@@ -59,9 +65,12 @@ func load_game() -> void:
 
 	# JSON doesn't support many of Godot's types such as Vector2.
 	# str_to_var can be used to convert a String to the corresponding Variant.
-	Globals.money = str_to_var(save_dict.game.money)
-	Globals.gems = str_to_var(save_dict.game.gems)
-	
+	Globals.money.mantissa = str_to_var(save_dict.game.money_mant)
+	Globals.money.exponent = str_to_var(save_dict.game.money_exp)
+
+	Globals.gems.mantissa = str_to_var(save_dict.game.gems_mant)
+	Globals.gems.exponent = str_to_var(save_dict.game.gems_exp)
+
 	Globals.arcadeGames.clear()
 	get_tree().call_group("arcade", "queue_free")
 	get_tree().call_group("npc", "queue_free")
@@ -70,7 +79,6 @@ func load_game() -> void:
 	for arcade_config: Dictionary in save_dict.arcades:
 		var arcade_type = arcade_config.arcade_type
 		var arcade_scene = null
-
 		match arcade_type:
 			"ArcadeMachine2":
 				arcade_scene = preload("res://Scenes/Arcades/arcade_2.tscn")
@@ -83,11 +91,14 @@ func load_game() -> void:
 				
 		var arcade_instance = arcade_scene.instantiate() as ArcadeMachine
 		game.add_child(arcade_instance) 
-
 		arcade_instance.position = str_to_var(arcade_config.position)
-		arcade_instance.money_per_played = str_to_var(arcade_config.money_per_played)
+		arcade_instance.money_per_played.mantissa = str_to_var(arcade_config.money_per_played_mant)
+		arcade_instance.money_per_played.exponent = str_to_var(arcade_config.money_per_played_exp)
 		arcade_instance.level = str_to_var(arcade_config.level)
-		arcade_instance.upgrade_cost = str_to_var(arcade_config.upgrade_cost)
-		arcade_instance.money_inc = str_to_var(arcade_config.money_inc)
+		arcade_instance.upgrade_cost.mantissa = str_to_var(arcade_config.upgrade_cost_mant)
+		arcade_instance.upgrade_cost.exponent = str_to_var(arcade_config.upgrade_cost_exp)
+		arcade_instance.money_inc.mantissa = str_to_var(arcade_config.money_inc_mant)
+		arcade_instance.money_inc.exponent = str_to_var(arcade_config.money_inc_exp)
+		
 	emit_signal("game_loaded")
 	

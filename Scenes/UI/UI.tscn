@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1xy6rbtgvkv0"]
+[gd_scene load_steps=10 format=3 uid="uid://d1xy6rbtgvkv0"]
 
 [ext_resource type="Script" path="res://Scenes/UI/ui.gd" id="1_0d6d5"]
+[ext_resource type="PackedScene" uid="uid://deo7gpdbxeqly" path="res://Scenes/UI/Mission/mission.tscn" id="3_ffspb"]
 [ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="3_rruhm"]
+[ext_resource type="PackedScene" uid="uid://bffewm85grktk" path="res://Scenes/UI/Settings/settings.tscn" id="4_uw2tg"]
+[ext_resource type="PackedScene" uid="uid://vkj6msjgf5dg" path="res://Scenes/UI/Store/store.tscn" id="5_t0duj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc6n2"]
 bg_color = Color(0, 0.685938, 0.691531, 1)
@@ -164,6 +167,18 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_5lumr")
 position = Vector2(30.0255, 29.1296)
 scale = Vector2(0.356727, 0.356727)
 texture = ExtResource("3_rruhm")
+
+[node name="Mission" parent="." instance=ExtResource("3_ffspb")]
+visible = false
+layout_mode = 1
+
+[node name="Settings" parent="." instance=ExtResource("4_uw2tg")]
+visible = false
+layout_mode = 1
+
+[node name="Store" parent="." instance=ExtResource("5_t0duj")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="MissionButton" to="." method="_on_mission_button_pressed"]
 [connection signal="pressed" from="PanelCoin/CoinStoreButton" to="." method="_on_coin_store_button_pressed"]

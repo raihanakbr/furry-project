@@ -1,7 +1,7 @@
 extends Node2D
 
 class_name ArcadeMachine
-signal money_generated(amount: int)
+signal money_generated(amount: ScientificNumber)
 @onready var upgrade_panel := $Panel as Panel
 @onready var upgrade_sign := $Sprite2D/UpgradeButton as Button
 @onready var upgrade_button := $Panel/UpgradeButton as Button
@@ -12,19 +12,19 @@ signal money_generated(amount: int)
 @onready var cost_label := $Panel/UpgradeButton/TextureRect/CostLabel as RichTextLabel
 
 var isOccupied: bool = false
-var money_per_played : int  = 10
+var money_per_played = ScientificNumber.new(1,1)
 var level : int  = 0
-var upgrade_cost : int  = 100
+var upgrade_cost = ScientificNumber.new(1,2)
 var machine_name = "Machine Type 1"
-var money_inc : int  = 3
-var buy_cost : int = 50
+var money_inc = ScientificNumber.new(3,0)
+var buy_cost = ScientificNumber.new(5,1)
 
 func _ready() -> void:
 	Globals.arcadeGames.append(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Globals.money >= upgrade_cost:
+	if Globals.money.compare(upgrade_cost) >= 1:
 		upgrade_button.disabled = false
 		upgrade_sign.visible = true
 	else:
@@ -38,19 +38,19 @@ func generate_money():
 
 func _upgrade():
 	Globals.sub_money(upgrade_cost)
-	money_per_played += money_inc
+	money_per_played = money_per_played.add(money_inc)
 	level += 1
 	if (level+1) % 10 == 0 && ((level+1)/10) & ((level+1)/10-1) == 0:
-		upgrade_cost *= 2
-		money_inc *= 4
+		upgrade_cost = upgrade_cost.mult(2)
+		money_inc = money_inc.mult(4)
 	elif (level) % 10 == 0 && ((level)/10) & ((level)/10-1) == 0:
-		money_inc /= 2
-		upgrade_cost += money_inc * 15
+		money_inc = money_inc.div(2)
+		upgrade_cost = upgrade_cost.add(money_inc.mult(15))
 	else:
-		upgrade_cost += money_inc * 15
+		upgrade_cost = upgrade_cost.add(money_inc.mult(15))
 
 func _on_upgrade_button_pressed() -> void:
-	if Globals.money >= upgrade_cost:
+	if Globals.money.compare(upgrade_cost) >= 1:
 		_upgrade()
 
 
@@ -68,6 +68,6 @@ func _on_button_pressed() -> void:
 func _update_label() -> void:
 	name_label.text = "[center][color=#696969]%s[/color][/center]" % machine_name
 	level_label.text = "[center][b][color=#000000]Level %d[/color][/b][/center]" % level
-	old_label.text = "[center][b][color=#000000]%d[/color][/b][/center]" % money_per_played
-	new_label.text = "[center][b][color=#000000]%d[/color][/b][/center]" % (money_per_played + money_inc)
-	cost_label.text = "[b][color=#000000]%d[/color][/b]" % upgrade_cost
+	old_label.text = "[center][b][color=#000000]%s[/color][/b][/center]" % money_per_played
+	new_label.text = "[center][b][color=#000000]%s[/color][/b][/center]" % (money_per_played.add(money_inc))
+	cost_label.text = "[b][color=#000000]%s[/color][/b]" % upgrade_cost

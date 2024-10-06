@@ -40,7 +40,7 @@ scale = Vector2(0.15625, 0.15625)
 texture = ExtResource("2_w6044")
 
 [node name="Node2D2" parent="." instance=ExtResource("6_bkpwf")]
-position = Vector2(66, -285)
+position = Vector2(102, -355)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -53,15 +53,15 @@ script = ExtResource("1_bmlud")
 game_node = NodePath("..")
 
 [node name="Node2D" parent="." instance=ExtResource("9_2k65m")]
-position = Vector2(617, -305)
+position = Vector2(629, -359)
 
 [node name="Node2D3" parent="." instance=ExtResource("8_uyt8t")]
-position = Vector2(230, -244)
+position = Vector2(368, -354)
 
 [node name="Node2D4" parent="." instance=ExtResource("9_xos7m")]
 position = Vector2(-135, -351)
 
 [node name="Node2D5" parent="." instance=ExtResource("9_2k65m")]
-position = Vector2(919, -237)
+position = Vector2(901, -348)
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

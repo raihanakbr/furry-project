@@ -1,5 +1,5 @@
 extends Control
-
+class_name OfflineIncome
 const SAVE_PATH =  "user://save_mps.json"
 const SAVE_TIME_PATH =  "user://save_time.dat"
 @onready var money_label := $Panel/Panel/MoneyLabel as RichTextLabel
@@ -8,12 +8,12 @@ const SAVE_TIME_PATH =  "user://save_time.dat"
 @onready var http_request_manager = preload("res://Scenes/http_request_manager.gd").new()
 var max_offline_minutes: int = 300
 var money_history: Array = []
-var total_money_in_last_60_seconds: int = 0
-var money_generated_this_second: int = 0 
+var total_money_in_last_60_seconds = ScientificNumber.new(0,0)
+var money_generated_this_second = ScientificNumber.new(0,0)
 var timer: Timer
 var start_time: int
 var last_logout_time = 0
-var offline_money = 0
+var offline_money = ScientificNumber.new(0,0)
 var start_unix_time
 var can_save = true
 var save_load
@@ -42,25 +42,27 @@ func _ready() -> void:
 
 func _set_is_loaded():
 	is_loaded = true
-	print("konz")
-	print(start_unix_time)
+	print(is_loaded, start_unix_time)
 	if start_unix_time:
 		is_loaded = false
 		_on_game_loaded()
 
 func _on_request_timeout():
+	print("to")
+	
 	$Panel2.visible = true
 	$Panel2/Panel/TryAgainButton.disabled = false
 	
 func _on_request_completed(result, response_code, headers, body):
+	print("gg")
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
+	
 	if response_code == 200:
 		if response['unixtime']:
 			start_unix_time = response['unixtime']
-			print("kont")
-			print(is_loaded)
+			print(start_unix_time, is_loaded)
 			if is_loaded:
 				is_loaded = false
 				_on_game_loaded()
@@ -69,13 +71,15 @@ func _on_game_loaded() -> void:
 	get_tree().paused = false
 	progress_bar.min_value = 0
 	progress_bar.max_value = max_offline_minutes
+	
 	offline_money = calculate_offline_income()
-	if offline_money:
-		money_label.text = "[center][color=#000000]%d[/color][/center]" % offline_money
+	if offline_money.mantissa != 0:
+		money_label.text = "[center][color=#000000]%s[/color][/center]" % offline_money
 		$Panel.visible = true
 		$Panel2.visible = false
+	
 	for i in range(60):
-		money_history.append(0)
+		money_history.append(ScientificNumber.new(0,0))
 	timer = Timer.new()
 	timer.wait_time = 1.0  # Trigger every second
 	timer.autostart = true
@@ -97,7 +101,6 @@ func _process(delta: float) -> void:
 	
 	
 func save_logout_time(logout_time):
-	print(logout_time)	
 	if DirAccess.dir_exists_absolute(SAVE_TIME_PATH):
 		DirAccess.remove_absolute(SAVE_TIME_PATH)
 
@@ -105,36 +108,27 @@ func save_logout_time(logout_time):
 	file.store_var(logout_time)
 	file.close()
 
-func calculate_offline_income():
+func calculate_offline_income() -> ScientificNumber:
 	var file = FileAccess.open(SAVE_TIME_PATH, FileAccess.READ)
-	var file_mps = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	
 	if file == null:
-		print("k")
-		return 0
-	if file_mps == null:
-		print("o")
-		return 0
+		return ScientificNumber.new(0,0)
+	
 	
 	last_logout_time = file.get_var()
 	file.close()
 	
-	var json := JSON.new()
-	json.parse(file_mps.get_line())
-	if !json.get_data():
-		return 0
-	var save_dict := json.get_data() as Dictionary
-	var money_per_second = str_to_var(save_dict.mps)
-	file_mps.close()
-
+	
+	
 	var current_time = start_unix_time
 	var offline_duration = current_time - last_logout_time
-
+	var money_per_second = calculate_money_per_second()
+	
 	var max_offline_duration = max_offline_minutes * 60
 	offline_duration = min(offline_duration, max_offline_duration)
 	update_offline_time(offline_duration)
-	var balancing_factor = 0.2
-	var total_offline_income = money_per_second * offline_duration * balancing_factor
+	var balancing_factor = 0.3
+	var total_offline_income = money_per_second.mult(offline_duration*balancing_factor)
 	
 	return total_offline_income
 
@@ -156,44 +150,65 @@ func save_game() -> void:
 	var logout_unix_time = start_unix_time + get_elapsed_time()
 	save_logout_time(logout_unix_time)
 	
-	var elapsed_seconds : int = get_elapsed_time()
-	var time_frame = min(elapsed_seconds, 60)
-	var money_per_seconds = 0
-
-	for i in range(time_frame):
-		money_per_seconds += money_history[60 - time_frame + i]
-	if time_frame >= 1:
-		money_per_seconds /= time_frame	
-	else:
-		money_per_seconds = 0
-	if !money_per_seconds:
+	var money_per_seconds = calculate_money_per_second()
+	if money_per_seconds.mantissa == 0:
 		return
 	var save_dict := {
-		mps = var_to_str(money_per_seconds),
+		mps_mant = var_to_str(money_per_seconds.mantissa),
+		mps_exp = var_to_str(money_per_seconds.exponent),
 	}
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	file.store_line(JSON.stringify(save_dict))
 		
-func _update_money_history():
-	remove_child(timer)
+func calculate_money_per_second() -> ScientificNumber:
+	var money_per_seconds = ScientificNumber.new(0,0)
+	var elapsed_seconds : int = get_elapsed_time()
+	var time_frame = min(elapsed_seconds, 60)
 	
-	# Add the money generated this second to the history array
+	if money_history:
+		for i in range(time_frame):
+			money_per_seconds = money_per_seconds.add(money_history[60 - time_frame + i])
+	if time_frame >= 1:
+		money_per_seconds = money_per_seconds.div(time_frame)	
+		
+	else:
+		money_per_seconds = ScientificNumber.new(0,0)
+		
+		
+	
+	var money_per_seconds_saved = ScientificNumber.new(0,0)
+	var file_mps = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file_mps != null:
+		var json := JSON.new()
+		json.parse(file_mps.get_line())
+		if !json.get_data():
+			return ScientificNumber.new(0,0)
+		var save_dict := json.get_data() as Dictionary
+		money_per_seconds_saved.mantissa = str_to_var(save_dict.mps_mant)
+		money_per_seconds_saved.exponent = str_to_var(save_dict.mps_exp)
+		
+		file_mps.close()
+	var mps
+	if money_per_seconds.compare(money_per_seconds_saved) == 0:
+		mps = money_per_seconds_saved
+	else:
+		mps = money_per_seconds
+	return mps	
+	
+func _update_money_history():
 	money_history.append(money_generated_this_second)
 
-	# Remove the oldest value (ensure array always holds 60 elements)
 	if money_history.size() > 60:
 		money_history.pop_front()
 
-	# Reset the counter for the next second
-	money_generated_this_second = 0
+	money_generated_this_second = ScientificNumber.new(0,0)
 
-	# Calculate the total money generated in the last 60 seconds
-	total_money_in_last_60_seconds = 0
+	total_money_in_last_60_seconds = ScientificNumber.new(0,0)
 	for money in money_history:
-		total_money_in_last_60_seconds += money
+		total_money_in_last_60_seconds = total_money_in_last_60_seconds.add(money)
 
-func add_money(amount: int):
-	money_generated_this_second += amount
+func add_money(amount: ScientificNumber):
+	money_generated_this_second =  money_generated_this_second.add(amount)
 
 func get_elapsed_time():
 	var current_time = Time.get_ticks_msec()  
@@ -226,6 +241,5 @@ func _on_claim_button_pressed() -> void:
 
 
 func _on_try_again_button_pressed() -> void:
-	print("konz")
 	$Panel2/Panel/TryAgainButton.disabled = true
 	http_request_manager.send_request("http://worldtimeapi.org/api/timezone/Asia/Jakarta")
