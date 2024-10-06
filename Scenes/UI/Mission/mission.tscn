@@ -231,6 +231,7 @@ fit_content = true
 tab_size = 1
 
 [node name="Panel" type="Panel" parent="Panel/VBoxContainer/MarginContainer3/Panel"]
+layout_mode = 0
 offset_left = 31.0
 offset_top = 10.0
 offset_right = 113.0
@@ -329,6 +330,7 @@ fit_content = true
 tab_size = 1
 
 [node name="Panel" type="Panel" parent="Panel/VBoxContainer/MarginContainer4/Panel"]
+layout_mode = 0
 offset_left = 31.0
 offset_top = 10.0
 offset_right = 113.0

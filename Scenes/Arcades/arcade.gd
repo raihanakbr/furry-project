@@ -17,7 +17,7 @@ var level : int  = 0
 var upgrade_cost = ScientificNumber.new(1,2)
 var machine_name = "Machine Type 1"
 var money_inc = ScientificNumber.new(3,0)
-var buy_cost = ScientificNumber.new(5,1)
+static var buy_cost = ScientificNumber.new(1,2)
 
 func _ready() -> void:
 	Globals.arcadeGames.append(self)

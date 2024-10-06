@@ -105,15 +105,6 @@ offset_bottom = 153.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
 text = "settings"
 
-[node name="Button5" type="Button" parent="."]
-layout_mode = 2
-offset_left = 584.0
-offset_top = 1021.0
-offset_right = 679.0
-offset_bottom = 1106.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_cc6n2")
-text = "misi"
-
 [node name="PanelGems" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 1
