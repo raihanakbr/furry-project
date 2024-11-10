@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dndueibiqxnor"]
+
+[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_62b8f"]
+[ext_resource type="Script" path="res://Scenes/Arcades/arcade_area.gd" id="1_k2yrh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pi2r"]
+size = Vector2(76, 77)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_k2yrh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_62b8f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4pi2r")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

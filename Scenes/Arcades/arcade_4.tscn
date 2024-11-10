@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://soq4402d6tl3"]
+[gd_scene load_steps=8 format=3 uid="uid://uwi72ummvqbc"]
 
-[ext_resource type="Script" path="res://Scenes/Arcades/arcade.gd" id="1_5f558"]
-[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_ifpuf"]
+[ext_resource type="Script" path="res://Scenes/Arcades/arcade_4.gd" id="1_5msrt"]
+[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="2_b1s03"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajclk"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -24,11 +24,12 @@ corner_radius_bottom_left = 5
 
 [node name="Node2D" type="Node2D" groups=["arcade"]]
 position = Vector2(0, 1)
-script = ExtResource("1_5f558")
+script = ExtResource("1_5msrt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.236189, 0.66352, 6.35326e-06, 1)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("2_b1s03")
 
 [node name="UpgradeButton" type="Button" parent="Sprite2D"]
 visible = false
@@ -110,7 +111,7 @@ offset_top = 59.0864
 offset_right = 139.286
 offset_bottom = 187.086
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("2_b1s03")
 expand_mode = 5
 stretch_mode = 2
 
@@ -137,7 +138,7 @@ offset_top = 59.0864
 offset_right = 230.903
 offset_bottom = 187.086
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("2_b1s03")
 expand_mode = 5
 stretch_mode = 2
 
@@ -187,7 +188,7 @@ offset_top = 7.0
 offset_right = 175.0
 offset_bottom = 135.0
 scale = Vector2(0.129449, 0.129449)
-texture = ExtResource("1_ifpuf")
+texture = ExtResource("2_b1s03")
 expand_mode = 5
 stretch_mode = 2
 

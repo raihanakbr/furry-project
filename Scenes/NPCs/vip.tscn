@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8klunmny6o1h"]
+[gd_scene load_steps=4 format=3 uid="uid://botluih7w4jnr"]
 
-[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_hdb7v"]
-[ext_resource type="Script" path="res://Scenes/NPCs/npc.gd" id="1_iadox"]
+[ext_resource type="Script" path="res://Scenes/NPCs/vip.gd" id="1_ueujd"]
+[ext_resource type="Texture2D" uid="uid://cntvg7dgrk13w" path="res://resources/images.jpeg" id="2_yigjd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvnr2"]
 size = Vector2(64, 64)
@@ -9,11 +9,12 @@ size = Vector2(64, 64)
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["npc"]]
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_iadox")
+script = ExtResource("1_ueujd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_hdb7v")
+position = Vector2(6.55651e-07, 9.53674e-07)
+scale = Vector2(0.284444, 0.285714)
+texture = ExtResource("2_yigjd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_fvnr2")

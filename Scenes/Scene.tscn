@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bu3foh7rt1xdw"]
+[gd_scene load_steps=2 format=3 uid="uid://bmbln82yg2g8a"]
 
-[ext_resource type="PackedScene" uid="uid://d0uqee38k3rk5" path="res://Scenes/UI/UI.tscn" id="1_cqrkc"]
+[ext_resource type="PackedScene" uid="uid://d1xy6rbtgvkv0" path="res://Scenes/UI/UI.tscn" id="1_cqrkc"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node"]
 
-[node name="Control" parent="." instance=ExtResource("1_cqrkc")]
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 6.0
-offset_bottom = 6.0
+[node name="UI" parent="." instance=ExtResource("1_cqrkc")]
+offset_left = -4.0
+offset_top = 1.0
+offset_right = -4.0
+offset_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
