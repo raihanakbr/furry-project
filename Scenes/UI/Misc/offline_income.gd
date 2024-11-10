@@ -35,7 +35,7 @@ func _ready() -> void:
 	get_tree().paused = true
 	http_request_manager.connect("request_completed", Callable(self, "_on_request_completed"))
 	http_request_manager.connect("request_timeout", Callable(self, "_on_request_timeout"))
-	http_request_manager.send_request("http://worldtimeapi.org/api/timezone/Asia/Jakarta")
+	http_request_manager.send_request("http://34.45.65.92:6192/")
 	
 	var save_load = get_node("/root/Node2D/SaveLoad")
 	save_load.connect("game_loaded", Callable(self, "_set_is_loaded"))

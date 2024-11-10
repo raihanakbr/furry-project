@@ -16,10 +16,10 @@ func _process(delta: float) -> void:
 	
 	var npc_instance
 	
-	if rand_int == 69:
-		npc_instance = npc_scene.instantiate()
-	else:
+	if rand_int <= 5:
 		npc_instance = vip_scene.instantiate()
+	else:
+		npc_instance = npc_scene.instantiate()
 	
 	# Set the position of the npc
 	npc_instance.position = Vector2(62, 1046)

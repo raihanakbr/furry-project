@@ -1,9 +1,16 @@
 extends NavigationRegion2D
 
 var arcade_area_scene = preload("res://Scenes/Arcades/arcade_area.tscn")
+var arcade_game_1 = preload("res://Scenes/Arcades/arcade.tscn")
+var arcade_game_2 = preload("res://Scenes/Arcades/arcade_2.tscn")
+var arcade_game_3 = preload("res://Scenes/Arcades/arcade_3.tscn")
+var arcade_game_4 = preload("res://Scenes/Arcades/arcade_4.tscn")
 var _tmp_arcade_aera : Array[Node2D] = []
 var _arcade_area_positions: Array[Vector2] = []
+var _presssed_pos
+
 @onready var _add_button = $"../CanvasLayer/Button"
+@onready var _arcade_choice = $"../CanvasLayer/Panel"
 
 func _ready():
 	# Create a new NavigationPolygon
@@ -101,8 +108,38 @@ func _on_button_pressed() -> void:
 		for area_pos in _arcade_area_positions:
 			var new_area = arcade_area_scene.instantiate()
 			new_area.position = area_pos
-			new_area.arcade_added.connect(_clear_arcade_areas)
+			new_area.area_pressed.connect(_area_pressed)
 			get_parent().add_child(new_area)
 			get_parent().move_child(new_area, get_parent().get_child_count() - 1)
 			_tmp_arcade_aera.append(new_area)
 		_add_button.text = "-"
+
+func _area_pressed(pos) -> void:
+	_arcade_choice.show()
+	_presssed_pos = pos
+
+func _on_panel_add_machine(machine) -> void:
+	if machine == "Machine1":
+		if Globals.money.compare(ArcadeMachine.buy_cost):
+			Globals.sub_money(ArcadeMachine.buy_cost)
+			var new_arcade_game = arcade_game_1.instantiate()
+			new_arcade_game.global_position = _presssed_pos
+			get_parent().add_child(new_arcade_game)
+	elif machine == "Machine2":
+		if Globals.money.compare(ArcadeMachine2.buy_cost):
+			Globals.sub_money(ArcadeMachine2.buy_cost)
+			var new_arcade_game = arcade_game_2.instantiate()
+			new_arcade_game.global_position = _presssed_pos
+			get_parent().add_child(new_arcade_game)
+	elif machine == "Machine3":
+		if Globals.money.compare(ArcadeMachine3.buy_cost):
+			Globals.sub_money(ArcadeMachine3.buy_cost)
+			var new_arcade_game = arcade_game_3.instantiate()
+			new_arcade_game.global_position = _presssed_pos
+			get_parent().add_child(new_arcade_game)
+	elif machine == "Machine4":
+		if Globals.money.compare(ArcadeMachine4.buy_cost):
+			Globals.sub_money(ArcadeMachine4.buy_cost)
+			var new_arcade_game = arcade_game_4.instantiate()
+			new_arcade_game.global_position = _presssed_pos
+			get_parent().add_child(new_arcade_game)
