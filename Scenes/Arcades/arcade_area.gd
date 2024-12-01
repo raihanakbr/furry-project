@@ -2,7 +2,7 @@ extends Area2D
 
 var arcade_game = preload("res://Scenes/Arcades/arcade.tscn")
 
-signal arcade_added
+signal area_pressed(pos)
 
 var increasing = true
 var speed = 200.0
@@ -26,11 +26,4 @@ func _process(delta: float) -> void:
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventScreenTouch:
-		if Globals.money.compare(ArcadeMachine.buy_cost):
-			Globals.sub_money(ArcadeMachine.buy_cost)
-			var new_arcade_game = arcade_game.instantiate()
-			new_arcade_game.global_position = global_position
-			get_parent().add_child(new_arcade_game)
-			arcade_added.emit()
-		else:
-			print("UANG GACUKUP")
+		area_pressed.emit(global_position)

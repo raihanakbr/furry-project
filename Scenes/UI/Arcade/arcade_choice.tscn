@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwoarr87me37b"]
+
+[ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_4m0io"]
+[ext_resource type="Script" path="res://Scenes/UI/Arcade/arcade_choice.gd" id="1_p45ja"]
+
+[node name="ArcadeChoice" type="Panel"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -410.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 0
+script = ExtResource("1_p45ja")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Pilih Mesin"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Machine1" type="TextureButton" parent="VBoxContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_4m0io")
+texture_pressed = ExtResource("1_4m0io")
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mesin 1"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Machine2" type="TextureButton" parent="VBoxContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("1_4m0io")
+texture_pressed = ExtResource("1_4m0io")
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Mesin 2"
+horizontal_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Machine3" type="TextureButton" parent="VBoxContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+texture_normal = ExtResource("1_4m0io")
+texture_pressed = ExtResource("1_4m0io")
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Mesin 3"
+horizontal_alignment = 1
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Machine4" type="TextureButton" parent="VBoxContainer/GridContainer/VBoxContainer4"]
+layout_mode = 2
+texture_normal = ExtResource("1_4m0io")
+texture_pressed = ExtResource("1_4m0io")
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/VBoxContainer4"]
+layout_mode = 2
+text = "Mesin 4"
+horizontal_alignment = 1

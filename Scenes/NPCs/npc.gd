@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name npc
 
 const speed = 200
 
@@ -28,6 +29,8 @@ func _physics_process(_delta: float) -> void:
 func makepath() -> void:
 	idx = -1
 	for i in range(len(Globals.arcadeGames)):
+		if Globals.arcadeGames[i] == null:
+			continue
 		if Globals.arcadeGames[i].isOccupied == false:
 			idx = i
 			Globals.arcadeGames[idx].isOccupied = true
@@ -45,11 +48,12 @@ func _on_navigation_agent_2d_target_reached() -> void:
 	play_time.start()
 	if hasPlayed:
 		queue_free()
-	else:
+	elif target != null:
 		target.generate_money()
 	
 func _on_timer_timeout() -> void:
 	isPlaying = false
 	hasPlayed = true
-	Globals.arcadeGames[idx].isOccupied = false
+	if target != null:
+		target.isOccupied = false
 	nav_agent.target_position = Vector2(212, 950)

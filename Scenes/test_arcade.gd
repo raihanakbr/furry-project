@@ -2,6 +2,9 @@ extends Node2D
 
 # Preload the npc scene
 var npc_scene = preload("res://Scenes/NPCs/npc.tscn")
+var vip_scene = preload("res://Scenes/NPCs/vip.tscn")
+var rng = RandomNumberGenerator.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Globals.http_request = HTTPRequest.new()
@@ -9,17 +12,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Check if the spacebar (ui_space action) was just pressed
-		# Instance the npc scene
-	var npc_instance = npc_scene.instantiate()
-
+	var rand_int = rng.randi_range(1, 100)
+	
+	var npc_instance
+	
+	if rand_int <= 99:
+		npc_instance = vip_scene.instantiate()
+	else:
+		npc_instance = npc_scene.instantiate()
+	
 	# Set the position of the npc
 	npc_instance.position = Vector2(62, 1046)
 
 	# Add the npc instance to the scene as a child
 	add_child(npc_instance)
-
-
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	print(event)
-	
