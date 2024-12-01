@@ -72,20 +72,32 @@ func _get_random_mission(i):
 			#print(Globals.mission_list[i].money_generated)
 			#print(Globals.mission_list[i].target_money)
 		return Globals.mission_list[i]
+		
+	var get_gems = false
+	var gems_reward = ScientificNumber.new(0,0)
+	if randf() <= 0.1:
+		gems_reward = ScientificNumber.new(randi_range(1,3),0)
+		get_gems = true
 	if randf() < 0.5:
 		var random_secs = randi_range(10,300)
 		var base_min = ScientificNumber.new(5,0)
 		if money_per_second.compare(base_min) < 1:
 			money_per_second = base_min
 		var target = money_per_second.mult(random_secs)
-		return GenerateMoneyMission.new(target, target.div(5))
+		if get_gems:
+			return GenerateMoneyMission.new(target, ScientificNumber.ZERO, gems_reward)
+		else:
+			return GenerateMoneyMission.new(target, target.div(5))
 	else:
 		var rand = randi_range(2, 10) * 60
 		var base_min = ScientificNumber.new(5,0)
 		if money_per_second.compare(base_min) < 1:
 			money_per_second = base_min
 		var reward = money_per_second.mult(rand).div(5)
-		return PlayTimeMission.new(rand,reward)
+		if get_gems:
+			return PlayTimeMission.new(rand,ScientificNumber.ZERO,gems_reward)
+		else:
+			return PlayTimeMission.new(rand,reward)
 
 func _on_game_loaded() -> void:
 	

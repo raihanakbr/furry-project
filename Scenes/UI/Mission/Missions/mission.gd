@@ -21,9 +21,10 @@ func _ready() -> void:
 	
 func set_reward_string():
 	if rewards.gems.mantissa:
-		reward_string = "[center][b][color=#000000]%s[/color][/b][/center]" % rewards.gems
+		print("BISA")
+		reward_string = "[center][b][color=#82caff]%s[/color][/b][/center]" % rewards.gems
 	else:
-		reward_string = "[center][b][color=#000000]%s[/color][/b][/center]" % rewards.money
+		reward_string = "[center][b][color=#ffea00]%s[/color][/b][/center]" % rewards.money
 
 func complete() -> void:
 	is_completed = true
