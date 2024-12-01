@@ -3,17 +3,75 @@
 [ext_resource type="Script" path="res://Scenes/save_load.gd" id="1_bmlud"]
 [ext_resource type="Script" path="res://Scenes/test_arcade.gd" id="1_wq508"]
 [ext_resource type="Script" path="res://Scenes/Arcades/navigation_area.gd" id="2_ewnca"]
+[ext_resource type="Texture2D" uid="uid://diw1gt5oktc7p" path="res://Assets/latest.png" id="4_i0odi"]
 [ext_resource type="Script" path="res://Scenes/Arcades/camera.gd" id="5_slw8u"]
 [ext_resource type="PackedScene" uid="uid://dwoarr87me37b" path="res://Scenes/UI/Arcade/arcade_choice.tscn" id="6_7f2ow"]
-[ext_resource type="PackedScene" uid="uid://soq4402d6tl3" path="res://Scenes/Arcades/arcade.tscn" id="6_bkpwf"]
 [ext_resource type="PackedScene" uid="uid://d1xy6rbtgvkv0" path="res://Scenes/UI/UI.tscn" id="7_mhyig"]
 [ext_resource type="PackedScene" uid="uid://dhbh3f5llx1c8" path="res://Scenes/UI/Misc/OfflineIncome.tscn" id="7_s7chg"]
-[ext_resource type="PackedScene" uid="uid://dwma4ppgb0x85" path="res://Scenes/Arcades/arcade_3.tscn" id="8_uyt8t"]
-[ext_resource type="PackedScene" uid="uid://uwi72ummvqbc" path="res://Scenes/Arcades/arcade_4.tscn" id="9_2k65m"]
-[ext_resource type="PackedScene" uid="uid://cvpx1146onrai" path="res://Scenes/Arcades/arcade_2.tscn" id="9_xos7m"]
 [ext_resource type="Script" path="res://Scenes/UI/Mission/Missions/playtime_mission_controller.gd" id="12_trwko"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ymmed"]
+
+[sub_resource type="Animation" id="Animation_pe1j3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-230, 915)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_nikun"]
+resource_name = "judy_hopps"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 0.329877),
+"update": 0,
+"values": [Vector2(-230, 915), Vector2(-230, 450)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r3bai"]
+_data = {
+"RESET": SubResource("Animation_pe1j3"),
+"judy_hopps": SubResource("Animation_nikun")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyeo1"]
 bg_color = Color(0, 0.686275, 0.690196, 1)
@@ -31,12 +89,19 @@ script = ExtResource("5_slw8u")
 can_zoom = true
 can_pan = true
 
-[node name="Node2D2" parent="." instance=ExtResource("6_bkpwf")]
-position = Vector2(102, -355)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D"]
+libraries = {
+"": SubResource("AnimationLibrary_r3bai")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D"]
+z_index = 20
+position = Vector2(-230, 915)
+texture = ExtResource("4_i0odi")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="AddArcadeButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -54,26 +119,14 @@ text = "+"
 
 [node name="OfflineIncome" parent="CanvasLayer" instance=ExtResource("7_s7chg")]
 
-[node name="Panel" parent="CanvasLayer" instance=ExtResource("6_7f2ow")]
+[node name="ArcadeChoice" parent="CanvasLayer" instance=ExtResource("6_7f2ow")]
 
 [node name="SaveLoad" type="Node2D" parent="."]
 script = ExtResource("1_bmlud")
 game_node = NodePath("..")
 
-[node name="Node2D" parent="." instance=ExtResource("9_2k65m")]
-position = Vector2(629, -359)
-
-[node name="Node2D3" parent="." instance=ExtResource("8_uyt8t")]
-position = Vector2(368, -354)
-
-[node name="Node2D4" parent="." instance=ExtResource("9_xos7m")]
-position = Vector2(-135, -351)
-
-[node name="Node2D5" parent="." instance=ExtResource("9_2k65m")]
-position = Vector2(901, -348)
-
 [node name="PlaytimeMissionController" type="Node2D" parent="."]
 script = ExtResource("12_trwko")
 
-[connection signal="pressed" from="CanvasLayer/Button" to="NavigationRegion2D" method="_on_button_pressed"]
-[connection signal="add_machine" from="CanvasLayer/Panel" to="NavigationRegion2D" method="_on_panel_add_machine"]
+[connection signal="pressed" from="CanvasLayer/AddArcadeButton" to="NavigationRegion2D" method="_on_button_pressed"]
+[connection signal="add_machine" from="CanvasLayer/ArcadeChoice" to="NavigationRegion2D" method="_on_panel_add_machine"]

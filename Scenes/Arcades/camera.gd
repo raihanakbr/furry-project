@@ -6,6 +6,8 @@ extends Camera2D
 @export var can_zoom: bool
 @export var can_pan: bool
 
+@onready var _arcade_choice = $"../CanvasLayer/ArcadeChoice"
+
 var touch_points: Dictionary = {}
 var start_distance
 var start_zoom
@@ -18,6 +20,11 @@ func _input(event):
 	elif event is InputEventScreenDrag:
 		handle_drag(event)
 
+func is_gui_touched(position: Vector2) -> bool:
+	if $"../CanvasLayer/ArcadeChoice".get_global_rect().has_point(position):
+		return true
+	return false
+	
 func handle_touch(event: InputEventScreenTouch):
 	if event.pressed:
 		touch_points[event.index] = event.position

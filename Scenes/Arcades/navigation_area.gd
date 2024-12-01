@@ -9,8 +9,8 @@ var _tmp_arcade_aera : Array[Node2D] = []
 var _arcade_area_positions: Array[Vector2] = []
 var _presssed_pos
 
-@onready var _add_button = $"../CanvasLayer/Button"
-@onready var _arcade_choice = $"../CanvasLayer/Panel"
+@onready var _add_button = $"../CanvasLayer/AddArcadeButton"
+@onready var _arcade_choice = $"../CanvasLayer/ArcadeChoice"
 
 func _ready():
 	# Create a new NavigationPolygon
@@ -28,33 +28,84 @@ func _ready():
 	var outer_outline = PackedVector2Array(outer_points)
 	nav_polygon.add_outline(outer_outline)
 	
-	# Define points for the first hole (non-navigable area)
-	var hole1_points = [
+	var _holes_points = []
+	
+	var _hole1_points = [
+		Vector2(-300, 100),
+		Vector2(-200, 100),
+		Vector2(-200, 200),
+		Vector2(-300, 200)
+	]
+		
+	var _hole2_points = [
+		Vector2(-100, 100),
+		Vector2(000, 100),
+		Vector2(000, 200),
+		Vector2(-100, 200)
+	]
+	
+	var _hole3_points = [
 		Vector2(100, 100),
 		Vector2(200, 100),
 		Vector2(200, 200),
 		Vector2(100, 200)
 	]
-	_arcade_area_positions.append(get_midpoint(hole1_points))
 	
-	# Add the first hole
-	var hole1_outline = PackedVector2Array(hole1_points)
-	nav_polygon.add_outline(hole1_outline)
+	#4
+	_holes_points.append([
+		Vector2(-300, -100),
+		Vector2(-200, -100),
+		Vector2(-200, 000),
+		Vector2(-300, 000)
+	])
 	
-	# Define points for the second hole
-	var hole2_points = [
-		Vector2(300, 300),
-		Vector2(400, 300),
-		Vector2(400, 400),
-		Vector2(300, 400)
-	]
+	#5
+	_holes_points.append([
+		Vector2(-100, -100),
+		Vector2(000, -100),
+		Vector2(000, 000),
+		Vector2(-100, 000)
+	])
 	
+	#6
+	_holes_points.append([
+		Vector2(100, -100),
+		Vector2(200, -100),
+		Vector2(200, 000),
+		Vector2(100, 000)
+	])
 	
-	_arcade_area_positions.append(get_midpoint(hole2_points))
+	#7
+	_holes_points.append([
+		Vector2(-300, -300),
+		Vector2(-200, -300),
+		Vector2(-200, -200),
+		Vector2(-300, -200)
+	])
 	
-	# Add the second hole
-	var hole2_outline = PackedVector2Array(hole2_points)
-	nav_polygon.add_outline(hole2_outline)
+	#8
+	_holes_points.append([
+		Vector2(-100, -300),
+		Vector2(000, -300),
+		Vector2(000, -200),
+		Vector2(-100, -200)
+	])
+	
+	#9
+	_holes_points.append([
+		Vector2(100, -300),
+		Vector2(200, -300),
+		Vector2(200, -200),
+		Vector2(100, -200)
+	])
+	
+	_holes_points.append(_hole1_points)
+	_holes_points.append(_hole2_points)
+	_holes_points.append(_hole3_points)
+	
+	for _hole_points in _holes_points:
+		_arcade_area_positions.append(get_midpoint(_hole_points))
+		nav_polygon.add_outline(PackedVector2Array(_hole_points))
 	
 	# Build the navigation polygon with holes
 	nav_polygon.make_polygons_from_outlines()
@@ -93,8 +144,9 @@ func get_midpoint(points: PackedVector2Array):
 func _process(_delta: float) -> void:
 	pass
 
-func _clear_arcade_areas():
+func clear_arcade_areas():
 	print("cleared")
+	Globals.is_choosing_arcade = false
 	for obj in _tmp_arcade_aera:
 		if is_instance_valid(obj):
 			obj.queue_free()
@@ -102,8 +154,10 @@ func _clear_arcade_areas():
 	_add_button.text = "+"
 
 func _on_button_pressed() -> void:
+	Globals.is_choosing_arcade = true
 	if len(_tmp_arcade_aera) > 0:
-		_clear_arcade_areas()
+		clear_arcade_areas()
+		Globals.is_choosing_arcade = false
 	else:
 		for area_pos in _arcade_area_positions:
 			var new_area = arcade_area_scene.instantiate()
@@ -123,23 +177,39 @@ func _on_panel_add_machine(machine) -> void:
 		if Globals.money.compare(ArcadeMachine.buy_cost):
 			Globals.sub_money(ArcadeMachine.buy_cost)
 			var new_arcade_game = arcade_game_1.instantiate()
+			new_arcade_game.connect("money_generated", $"../CanvasLayer/OfflineIncome".add_money)
+			for mission in Globals.mission_list:
+				if mission is GenerateMoneyMission:
+					new_arcade_game.connect("money_generated", mission.generate_money)
 			new_arcade_game.global_position = _presssed_pos
 			get_parent().add_child(new_arcade_game)
+			_arcade_choice.hide_menu()
+		else:
+			print("Duit gacukup :(")
 	elif machine == "Machine2":
 		if Globals.money.compare(ArcadeMachine2.buy_cost):
 			Globals.sub_money(ArcadeMachine2.buy_cost)
 			var new_arcade_game = arcade_game_2.instantiate()
 			new_arcade_game.global_position = _presssed_pos
 			get_parent().add_child(new_arcade_game)
+			_arcade_choice.hide_menu()
+		else:
+			print("Duit gacukup :(")
 	elif machine == "Machine3":
 		if Globals.money.compare(ArcadeMachine3.buy_cost):
 			Globals.sub_money(ArcadeMachine3.buy_cost)
 			var new_arcade_game = arcade_game_3.instantiate()
 			new_arcade_game.global_position = _presssed_pos
 			get_parent().add_child(new_arcade_game)
+			_arcade_choice.hide_menu()
+		else:
+			print("Duit gacukup :(")
 	elif machine == "Machine4":
 		if Globals.money.compare(ArcadeMachine4.buy_cost):
 			Globals.sub_money(ArcadeMachine4.buy_cost)
 			var new_arcade_game = arcade_game_4.instantiate()
 			new_arcade_game.global_position = _presssed_pos
 			get_parent().add_child(new_arcade_game)
+			_arcade_choice.hide_menu()
+		else:
+			print("Duit gacukup :(")

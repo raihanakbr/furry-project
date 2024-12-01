@@ -18,4 +18,7 @@ func _ready() -> void:
 func _arcade_button_pressed(machine_type):
 	add_machine.emit(machine_type.name)
 	print("Machine selected: " + machine_type.name)
+
+func hide_menu():
 	hide()
+	$"../../NavigationRegion2D".clear_arcade_areas()

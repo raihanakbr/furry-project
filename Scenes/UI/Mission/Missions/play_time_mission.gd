@@ -26,7 +26,7 @@ func update_target():
 func one_sec_elapsed():
 	duration_played += 1
 	if	duration_played >= target_duration:
-		playtime_controller.disconnect("money_generated", Callable(self, "generate_money"))
+		playtime_controller.disconnect("one_sec_elapsed", Callable(self, "one_sec_elapsed"))
 		duration_played = target_duration
 		complete()
 	else:

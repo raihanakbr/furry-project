@@ -113,6 +113,7 @@ func load_game() -> void:
 	get_tree().call_group("npc", "queue_free")
 	# Ensure the node structure is the same when loading.
 	var game := get_node(game_node)
+	
 	for arcade_config: Dictionary in save_dict.arcades:
 		var arcade_type = arcade_config.arcade_type
 		var arcade_scene = null
@@ -136,6 +137,8 @@ func load_game() -> void:
 		arcade_instance.upgrade_cost.exponent = str_to_var(arcade_config.upgrade_cost_exp)
 		arcade_instance.money_inc.mantissa = str_to_var(arcade_config.money_inc_mant)
 		arcade_instance.money_inc.exponent = str_to_var(arcade_config.money_inc_exp)
+		#Globals.arcadeGames.append(arcade_instance)
+		print("ppp",arcade_instance)
 	var i = 0
 	for mission_config: Dictionary in save_dict.missions:
 		if mission_config:
