@@ -5,12 +5,14 @@ class_name GenerateMoneyMission
 var target_money = ScientificNumber.new(0,0) 
 var money_generated = ScientificNumber.new(0,0) 
 var money_per_second = ScientificNumber.new(0,0) 
+var playtime_controller
 
-func _init(target, money_reward=ScientificNumber.new(0,0), gems_reward=ScientificNumber.new(0,0)):
+func _init(target, money_reward=ScientificNumber.new(0,0), gems_reward=ScientificNumber.new(0,0), money_generated=ScientificNumber.new(0,0) ):
 	rewards.money = money_reward
 	rewards.gems = gems_reward
+	self.money_generated = money_generated
 	target_money = target
-	target_string = "[center][b]0 / %s[/b][/center]" % target_money
+	target_string = "[center][b]%s / %s[/b][/center]" % [money_generated,target_money]
 	mission_desc = "Generate %s Money from All Machines" % target
 	set_reward_string()
 
@@ -21,10 +23,11 @@ func _ready():
 	for arcade in arcade_machines:
 		var arc = arcade as ArcadeMachine
 		arc.connect("money_generated", Callable(self, "generate_money"))
+	playtime_controller = get_node("/root/Node2D/PlaytimeMissionController")
+	playtime_controller.connect("one_sec_elapsed", Callable(self, "one_sec_elapsed"))
 
-#func connect_signal():
-	
-	
+func update_target():
+	generate_money(ScientificNumber.new(0,0))
 
 func generate_money(amount: ScientificNumber):
 	money_generated = money_generated.add(amount)

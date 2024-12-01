@@ -69,9 +69,10 @@ func div(other) -> ScientificNumber:
 	return copy
 	
 func get_suffix() -> String:
-	var suffixes = "abcdefghijklmnopqrstuvwxyz"
+	var suffixes = ["K", "M", "B", "T", "Qa", "Qi", "S", "Sp", "Oc"]
+
 	var index = int(exponent / 3) - 1
-	return suffixes[index] if index >= 0 and index < suffixes.length() else ""
+	return suffixes[index] if index >= 0 and index < suffixes.size() else ""
 
 func _to_string() -> String:
 	var adjusted_mantissa = mantissa

@@ -29,10 +29,47 @@ func save_game() -> void:
 			gems_exp = var_to_str(Globals.gems.exponent),
 		},
 		arcades = [],
+		missions = [],
 	}
+	for mission in Globals.mission_list:
+		var mission_type = "Unknown"
+		#if mission == null:
+			
+		var rewards = {
+			money_mant = var_to_str(mission.rewards.money.mantissa),
+			money_exp = var_to_str(mission.rewards.money.exponent),
+			gems_mant = var_to_str(mission.rewards.gems.mantissa),
+			gems_exp = var_to_str(mission.rewards.gems.exponent),
+		}
+		var target
+		var progress
+		if mission is GenerateMoneyMission:
+			mission_type = "GenerateMoney"
+			print("woy")
+			target = {
+				mant = var_to_str(mission.target_money.mantissa),
+				exp = var_to_str(mission.target_money.exponent),
+			}
+			progress = {
+				mant = var_to_str(mission.money_generated.mantissa),
+				exp = var_to_str(mission.money_generated.exponent),
+			}
+		if mission is PlayTimeMission:
+			mission_type = "Playtime"
+			target = mission.target_duration
+			progress = mission.duration_played
+		save_dict.missions.push_back({
+			mission_type = mission_type,
+			rewards = rewards,
+			target = target,
+			progress = progress
+		})
+		
 	for game in Globals.arcadeGames:
 		var arcade_game = game as ArcadeMachine
 		var arcade_class = "Unknown"
+		var is_completed = false
+		var rewards
 		if arcade_game is ArcadeMachine2:
 			arcade_class = "ArcadeMachine2"
 		elif arcade_game is ArcadeMachine3:
@@ -99,6 +136,28 @@ func load_game() -> void:
 		arcade_instance.upgrade_cost.exponent = str_to_var(arcade_config.upgrade_cost_exp)
 		arcade_instance.money_inc.mantissa = str_to_var(arcade_config.money_inc_mant)
 		arcade_instance.money_inc.exponent = str_to_var(arcade_config.money_inc_exp)
-		
+	var i = 0
+	for mission_config: Dictionary in save_dict.missions:
+		if mission_config:
+			if mission_config.mission_type != "Unknown":
+				var rewards_string = mission_config.rewards
+				var gems = ScientificNumber.new(str_to_var(rewards_string.gems_mant), str_to_var(rewards_string.gems_exp))
+				var money = ScientificNumber.new(str_to_var(rewards_string.money_mant), str_to_var(rewards_string.money_exp))
+				var progress = mission_config.progress
+				var target = mission_config.target
+				var mission
+				if mission_config.mission_type == "GenerateMoney":
+					target = ScientificNumber.new(str_to_var(target.mant), str_to_var(target.exp))
+					progress =  ScientificNumber.new(str_to_var(progress.mant), str_to_var(progress.exp))
+					print(progress)
+					mission = GenerateMoneyMission.new(target, money, gems, progress)
+					#mission.money_generated = progress
+				if mission_config.mission_type == "Playtime":
+					#target = str_to_var(target)
+					#progress = str_to_var(progress)
+					mission = PlayTimeMission.new(target, money, gems)
+					mission.duration_played = progress
+				Globals.mission_list[i] = mission
+				i += 1
 	emit_signal("game_loaded")
 	

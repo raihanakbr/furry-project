@@ -43,9 +43,9 @@ func _generate_new_mission(i):
 	if timer:
 		timer.queue_free()
 	money_per_second = offline_income.calculate_money_per_second()
-	var random_secs = randi_range(10,300)
-	var target = money_per_second.mult(random_secs)
-	var mission = GenerateMoneyMission.new(target, target.div(2.5))
+
+	var mission = _get_random_mission(i)
+	
 	add_child(mission)
 	Globals.mission_list[i] = mission
 	var panel = mission_panel_list[i] as Panel
@@ -56,13 +56,36 @@ func _generate_new_mission(i):
 	mission.target_text.text = mission.target_string
 	mission.reward_text = reward_label
 	mission.reward_text.text = mission.reward_string
+	mission.update_target()
 	mission.connect("mission_completed", Callable(self, "_on_mission_completed"))
 	label.text = "[center]%s[/center]" % mission.mission_desc 
 	mission.claim_button.disabled = true
 	for missions in Globals.mission_list:
 		if missions:
 			missions.update_status()
-	
+
+func _get_random_mission(i):
+	if Globals.mission_list[i] and is_instance_valid(Globals.mission_list[i]):
+		if Globals.mission_list[i] is GenerateMoneyMission :
+			pass
+			#print(Globals.mission_list[i].rewards)
+			#print(Globals.mission_list[i].money_generated)
+			#print(Globals.mission_list[i].target_money)
+		return Globals.mission_list[i]
+	if randf() < 0.5:
+		var random_secs = randi_range(10,300)
+		var base_min = ScientificNumber.new(5,0)
+		if money_per_second.compare(base_min) < 1:
+			money_per_second = base_min
+		var target = money_per_second.mult(random_secs)
+		return GenerateMoneyMission.new(target, target.div(5))
+	else:
+		var rand = randi_range(2, 10) * 60
+		var base_min = ScientificNumber.new(5,0)
+		if money_per_second.compare(base_min) < 1:
+			money_per_second = base_min
+		var reward = money_per_second.mult(rand).div(5)
+		return PlayTimeMission.new(rand,reward)
 
 func _on_game_loaded() -> void:
 	
