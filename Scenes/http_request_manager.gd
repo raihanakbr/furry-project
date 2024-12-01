@@ -4,7 +4,7 @@ signal request_completed(result, response_code, headers, body)
 signal request_timeout()
 
 var http_request : HTTPRequest
-var timeout_duration : float = 5
+var timeout_duration : float = 15
 var request_timer : Timer
 
 
@@ -31,9 +31,16 @@ func send_request(url: String, method: int = HTTPClient.METHOD_GET, request_data
 	request_timer.start()
 
 func _http_request_completed(result, response_code, headers, body):
-	emit_signal("request_completed", result, response_code, headers, body)
+	
+	var json = JSON.new()
+	json.parse(body.get_string_from_utf8())
+	var response = json.get_data()
+	
+	
+	if response:
+		emit_signal("request_completed", result, response_code, headers, body)
 
-	http_request.disconnect("request_completed", Callable(self, "_on_request_completed"))
+		http_request.disconnect("request_completed", Callable(self, "_on_request_completed"))
 	
 func _on_request_timeout():
 	print("konz")

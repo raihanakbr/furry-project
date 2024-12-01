@@ -35,8 +35,8 @@ func _ready() -> void:
 	get_tree().paused = true
 	http_request_manager.connect("request_completed", Callable(self, "_on_request_completed"))
 	http_request_manager.connect("request_timeout", Callable(self, "_on_request_timeout"))
-	http_request_manager.send_request("http://worldtimeapi.org/api/timezone/Asia/Jakarta")
-	
+	http_request_manager.send_request("https://worldtimeapi.org/api/timezone/Asia/Jakarta")
+
 	var save_load = get_node("/root/Node2D/SaveLoad")
 	save_load.connect("game_loaded", Callable(self, "_set_is_loaded"))
 
@@ -54,11 +54,11 @@ func _on_request_timeout():
 	$Panel2/Panel/TryAgainButton.disabled = false
 	
 func _on_request_completed(result, response_code, headers, body):
-	print("gg")
+	
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
-	
+	print("gg", response)
 	if response_code == 200:
 		if response['unixtime']:
 			start_unix_time = response['unixtime']
@@ -242,4 +242,4 @@ func _on_claim_button_pressed() -> void:
 
 func _on_try_again_button_pressed() -> void:
 	$Panel2/Panel/TryAgainButton.disabled = true
-	http_request_manager.send_request("http://worldtimeapi.org/api/timezone/Asia/Jakarta")
+	http_request_manager.send_request("https://worldtimeapi.org/api/timezone/Asia/Jakarta")
