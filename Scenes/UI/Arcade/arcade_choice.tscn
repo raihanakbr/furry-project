@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://v5nyxote7yh7" path="res://icon.svg" id="1_4m0io"]
 [ext_resource type="Script" path="res://Scenes/UI/Arcade/arcade_choice.gd" id="1_p45ja"]
 
-[node name="Panel" type="Panel"]
+[node name="ArcadeChoice" type="Panel"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0

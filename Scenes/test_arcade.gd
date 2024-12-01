@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	
 	var npc_instance
 	
-	if rand_int <= 5:
+	if rand_int <= 99:
 		npc_instance = vip_scene.instantiate()
 	else:
 		npc_instance = npc_scene.instantiate()
